@@ -68,7 +68,7 @@ const SortingGame: React.FC = () => {
     // Calculate correct orders for these chairs
     const newCorrectOrders = {
       function: [...selectedChairs].sort((a, b) => b.function - a.function).map(c => c.id),
-      aesthetics: [...selectedChairs].sort((a, b) => b.aesthetics - a.function).map(c => c.id),
+      aesthetics: [...selectedChairs].sort((a, b) => b.aesthetics - a.aesthetics).map(c => c.id),
       emotion: [...selectedChairs].sort((a, b) => b.emotion - a.emotion).map(c => c.id),
     };
     
