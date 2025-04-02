@@ -1,0 +1,118 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    padding: 20px;
+    gap: 20px;
+  }
+  
+  .stars-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .star-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    min-width: 80px;
+  }
+  
+  .star-icon {
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s ease;
+  }
+  
+  .star-icon.achieved {
+    filter: brightness(0) saturate(100%);
+    transform: scale(1.2);
+  }
+  
+  .category-label {
+    display: none;
+    text-transform: capitalize;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .chairs-container {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    overflow-x: auto;
+    width: 100vw;
+    justify-content: center;
+  }
+  
+  .draggable-chair {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    cursor: grab;
+  }
+  
+  .chair-image-container {
+    height: 150px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .chair-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  
+  .chair-stats {
+    display: none;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .discovery-message {
+    position: fixed;
+    top: 10%;
+    font-size: 1.5rem;
+    stroke: black;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    animation: fadeInOut 2s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+  }
+  
+  .hint-text {
+    margin-top: 20px;
+    color: #666;
+    font-style: italic;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .chairs-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Touch devices smooth scrolling */
+  .chairs-container {
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  
