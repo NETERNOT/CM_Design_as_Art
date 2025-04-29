@@ -149,6 +149,32 @@ const ALL_CHAIRS: Chair[] = [
 
 const CustomSortingGame: React.FC = () => {
   const [currentChairs, setCurrentChairs] = useState<Chair[]>([]);
+  const [category, setCategory] = useState("");
+  const [author, setAuthor] = useState("");
+
+  const saveCombination = async (category: string, author: string, chairs: Chair[]) => {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyDzmG03yMUrEiVrw4kGFnaOjJ9S_3rc6-xhRsxtzWdS-_sfew4WIPVeuHVTw8v8Ooi/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        category,
+        author,
+        chairs: chairs.map((c) => c.id),
+      }),
+    });
+  
+    const text = await response.text();
+    if (text === "Success") {
+      alert("Combination saved!");
+    } else {
+      alert(text); 
+    }
+  };
+  
+
+  const isFormValid =
+    category.trim() !== "" &&
+    author.trim() !== "" &&
+    currentChairs.length === 5;
 
   // Initialize the game with random chairs
   const initializeGame = () => {
@@ -188,9 +214,19 @@ const CustomSortingGame: React.FC = () => {
     <div className="container">
       <div id="upperSection">
         <div id="inputContainer">
-          <input type="text" placeholder="Category"></input>
+          <input
+            type="text"
+            placeholder="Category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          ></input>
           <div style={{ flexBasis: "100%", height: 0 }} />
-          <input type="text" placeholder="Author"></input>
+          <input
+            type="text"
+            placeholder="Author"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          ></input>
         </div>
 
         <Reorder.Group
@@ -215,6 +251,7 @@ const CustomSortingGame: React.FC = () => {
                 </div>
 
                 <svg
+                className="removeChair"
                   onClick={() => handleRemoveChair(chair.id)}
                   width="38"
                   height="37"
@@ -235,7 +272,6 @@ const CustomSortingGame: React.FC = () => {
                     fill="black"
                   />
                 </svg>
-
               </motion.div>
             </Reorder.Item>
           ))}
@@ -292,8 +328,12 @@ const CustomSortingGame: React.FC = () => {
               </svg>
             </div>
           </div>
-          <button>Submit your order</button>
+          <button disabled={!isFormValid} onClick={() => saveCombination(category, author, currentChairs)}>Submit your order
+            <div id="reqs">Category and Author must be filled.<br></br>Must select 5 chairs.</div>
+          </button>
         </div>
+
+
         <div id="chairs">
           {ALL_CHAIRS.map((chair) => {
             const isSelected = currentChairs.some((c) => c.id === chair.id);
@@ -319,7 +359,7 @@ const CustomSortingGame: React.FC = () => {
           })}
         </div>
         <div id="combinations">
-          { /* TODO 
+          {/* TODO 
                lógica de guardar e sacar o json
               logica de dar toggle a isto e às cadeiras, e aos .topic associados
           */}

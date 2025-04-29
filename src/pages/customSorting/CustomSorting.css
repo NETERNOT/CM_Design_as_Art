@@ -81,6 +81,19 @@ input{
   user-select: none;
   cursor: grab;
   gap: 1rem;
+
+  &:hover>.removeChair{
+    opacity: .2;
+    &:hover{
+      opacity: 1;
+    }
+  }
+}
+
+.removeChair{
+  opacity: 0;
+  transition: all 0.6s ease;
+  
 }
 
 .chair-image-container {
@@ -146,6 +159,7 @@ input{
 }
 
 button{
+  position: relative;
   background-color: black;
   color: white;
   border: none;
@@ -153,7 +167,31 @@ button{
   font-size: 1.2rem;
   font-weight: 600;
   height: 3rem;
+  transition: all 0.5s ease;
+
+  &:disabled{
+    background-color: #C4C4C4;
+    cursor: not-allowed;
+    
+    &:hover>#reqs{
+      opacity: 1;
+      bottom:120%
+    }
+  }
 }
+
+#reqs{
+  width: 90%;
+  left:1rem;
+  position: absolute;
+  bottom:80%;
+  opacity: 0;
+  transition: all 0.8s ease-out;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: left;
+}
+
 
 #chairs {
   width: 85%;
