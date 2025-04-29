@@ -328,7 +328,7 @@ const CustomSortingGame: React.FC = () => {
               </svg>
             </div>
           </div>
-          <button disabled={!isFormValid} onClick={() => saveCombination(category, author, currentChairs)}>Submit your order
+          <button disabled={!isFormValid} onClick={() => saveCombination(category, author, currentChairs)} id="submit">Submit your order
             <div id="reqs">Category and Author must be filled.<br></br>Must select 5 chairs.</div>
           </button>
         </div>
@@ -359,6 +359,8 @@ const CustomSortingGame: React.FC = () => {
           })}
         </div>
         <div id="combinations">
+          <div id="setCombinations"></div>
+          <div id="otherCombinations"></div>
           {/* TODO 
                lógica de guardar e sacar o json
               logica de dar toggle a isto e às cadeiras, e aos .topic associados
