@@ -76,6 +76,12 @@ interface Chair {
   src: string;
 }
 
+interface ChairCombination {
+  category: string;
+  author: string;
+  chairs: number[];
+}
+
 const ALL_CHAIRS: Chair[] = [
   { id: 1, src: Chair01 },
   { id: 2, src: Chair02 },
@@ -151,56 +157,106 @@ const CustomSortingGame: React.FC = () => {
   const [currentChairs, setCurrentChairs] = useState<Chair[]>([]);
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
+  const [savedCombinations, setSavedCombinations] = useState<
+    ChairCombination[]
+  >([]);
+  const [setCombinations, setSetCombinations] = useState<ChairCombination[]>(
+    []
+  );
+  const [otherCombinations, setOtherCombinations] = useState<
+    ChairCombination[]
+  >([]);
+  const [areChairsOpen, setAreChairsOpen] = useState(true);
 
-  const saveCombination = async (category: string, author: string, chairs: Chair[]) => {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbyDzmG03yMUrEiVrw4kGFnaOjJ9S_3rc6-xhRsxtzWdS-_sfew4WIPVeuHVTw8v8Ooi/exec", {
-      method: "POST",
-      body: JSON.stringify({
-        category,
-        author,
-        chairs: chairs.map((c) => c.id),
-      }),
-    });
-  
+  const saveCombination = async (
+    category: string,
+    author: string,
+    chairs: Chair[]
+  ) => {
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbyDzmG03yMUrEiVrw4kGFnaOjJ9S_3rc6-xhRsxtzWdS-_sfew4WIPVeuHVTw8v8Ooi/exec",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          category,
+          author,
+          chairs: chairs.map((c) => c.id),
+        }),
+      }
+    );
+
     const text = await response.text();
     if (text === "Success") {
       alert("Combination saved!");
     } else {
-      alert(text); 
+      alert(text);
     }
   };
+
   
+  const handleCombinations = async () => {
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbyDzmG03yMUrEiVrw4kGFnaOjJ9S_3rc6-xhRsxtzWdS-_sfew4WIPVeuHVTw8v8Ooi/exec"
+    );
+    /*
+    const raw = await response.text();  // get raw text
+    console.log("Raw response:", raw);
+    
+    try {
+      const data = JSON.parse(raw);
+      console.log("Parsed data:", data);
+    } catch (err) {
+      console.error("Failed to parse JSON:", err);
+    }
+    */
+
+    //break test
+    const data: ChairCombination[] = await response.json();
+    setSavedCombinations(data);
+  
+    // Use the freshly fetched data instead of relying on the state value
+    const currentIds = [...currentChairs.map((c) => c.id)].sort((a, b) => a - b);
+    const setMatches: ChairCombination[] = [];
+    const otherMatches: ChairCombination[] = [];
+  
+    savedCombinations.forEach((combo) => {
+      const sortedCombo = [...combo.chairs].sort((a, b) => a - b);
+      const isSame = JSON.stringify(sortedCombo) === JSON.stringify(currentIds);
+      if (isSame) {
+        setMatches.push(combo);
+      } else {
+        otherMatches.push(combo);
+      }
+    });
+  
+    setSetCombinations(setMatches);
+    setOtherCombinations(otherMatches);
+  };
+  
+  setTimeout(handleCombinations, 5000);
 
   const isFormValid =
     category.trim() !== "" &&
     author.trim() !== "" &&
     currentChairs.length === 5;
 
-  // Initialize the game with random chairs
   const initializeGame = () => {
-    // Shuffle and select 5 random chairs
     const shuffled = [...ALL_CHAIRS].sort(() => 0.5 - Math.random());
-    const selectedChairs = shuffled.slice(0, 5);
-
-    setCurrentChairs(selectedChairs);
+    setCurrentChairs(shuffled.slice(0, 5));
   };
 
-  // Initialize on first render
   useEffect(() => {
     initializeGame();
   }, []);
 
-  // Handle reordering of the selected chairs
   const handleReorder = (newChairs: Chair[]) => {
     setCurrentChairs(newChairs);
   };
 
-  // Handle removing a chair from the selected list
   const handleRemoveChair = (id: number) => {
     setCurrentChairs(currentChairs.filter((chair) => chair.id !== id));
   };
 
-  // Handle adding a chair to the selected list
   const handleAddChair = (chair: Chair) => {
     if (
       currentChairs.length < 5 &&
@@ -219,14 +275,14 @@ const CustomSortingGame: React.FC = () => {
             placeholder="Category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-          ></input>
+          />
           <div style={{ flexBasis: "100%", height: 0 }} />
           <input
             type="text"
             placeholder="Author"
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-          ></input>
+          />
         </div>
 
         <Reorder.Group
@@ -249,9 +305,8 @@ const CustomSortingGame: React.FC = () => {
                     className="chair-image"
                   />
                 </div>
-
                 <svg
-                className="removeChair"
+                  className="removeChair"
                   onClick={() => handleRemoveChair(chair.id)}
                   width="38"
                   height="37"
@@ -294,10 +349,14 @@ const CustomSortingGame: React.FC = () => {
           Lowest
         </p>
       </div>
+
       <div id="lowerSection">
         <div id="left">
           <div id="topicContainer">
-            <div className="topic">
+            <div
+              className={`topic ${areChairsOpen ? "open" : ""}`}
+              onClick={() => setAreChairsOpen(true)}
+            >
               <p>Chairs</p>
               <svg
                 width="23"
@@ -312,7 +371,13 @@ const CustomSortingGame: React.FC = () => {
                 />
               </svg>
             </div>
-            <div className="topic">
+            <div
+              className={`topic ${!areChairsOpen ? "open" : ""}`}
+              onClick={() => {
+                handleCombinations();
+                setAreChairsOpen(false);
+              }}
+            >
               <p>Collections</p>
               <svg
                 width="23"
@@ -328,44 +393,76 @@ const CustomSortingGame: React.FC = () => {
               </svg>
             </div>
           </div>
-          <button disabled={!isFormValid} onClick={() => saveCombination(category, author, currentChairs)} id="submit">Submit your order
-            <div id="reqs">Category and Author must be filled.<br></br>Must select 5 chairs.</div>
+
+          <button
+            disabled={!isFormValid}
+            onClick={() => saveCombination(category, author, currentChairs)}
+            id="submit"
+          >
+            Submit your order
+            <div id="reqs">
+              Category and Author must be filled.
+              <br />
+              Must select 5 chairs.
+            </div>
           </button>
         </div>
 
-
-        <div id="chairs">
-          {ALL_CHAIRS.map((chair) => {
-            const isSelected = currentChairs.some((c) => c.id === chair.id);
-            return (
-              <div
-                key={chair.id}
-                className={`chair-item-container ${
-                  isSelected ? "selected" : ""
-                }`}
-                onClick={() => {
-                  if (!isSelected && currentChairs.length < 5) {
-                    handleAddChair(chair);
+        <div id="right">
+          {areChairsOpen ? (
+            <div id="chairs">
+            {ALL_CHAIRS.map((chair) => {
+              const isSelected = currentChairs.some((c) => c.id === chair.id);
+              return (
+                <div
+                  key={chair.id}
+                  className={`chair-item-container ${
+                    isSelected ? "selected" : ""
+                  }`}
+                  onClick={() =>
+                    !isSelected &&
+                    currentChairs.length < 5 &&
+                    handleAddChair(chair)
                   }
-                }}
-              >
-                <img
-                  src={chair.src}
-                  alt={`Chair ${chair.id}`}
-                  className="chair-Item"
-                />
+                >
+                  <img
+                    src={chair.src}
+                    alt={`Chair ${chair.id}`}
+                    className="chair-Item"
+                  />
+                </div>
+              );
+            })}
+          </div>) : (
+            <div id="combinations">
+            <div id="setCombinations">
+              <h2 className="sectionTitle">For this set:</h2>
+              <div className="comboContainer">
+                {setCombinations.map((combo, index) => (
+                  <p className="combo" key={index}>
+                    {combo.category} by {combo.author}
+                  </p>
+                ))}
+
               </div>
-            );
-          })}
+            </div>
+            <div id="otherCombinations">
+            <h2 className="sectionTitle">Others:</h2>
+              <div className="comboContainer">
+                {otherCombinations.map((combo, index) => (
+                  <p className="combo" key={index}>
+                    {combo.category} by {combo.author}
+                  </p>
+                ))}
+
+              </div>
+            </div>
+          </div>
+          )}
+          
         </div>
-        <div id="combinations">
-          <div id="setCombinations"></div>
-          <div id="otherCombinations"></div>
-          {/* TODO 
-               lógica de guardar e sacar o json
-              logica de dar toggle a isto e às cadeiras, e aos .topic associados
-          */}
-        </div>
+
+
       </div>
     </div>
   );
