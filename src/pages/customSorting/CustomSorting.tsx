@@ -158,15 +158,9 @@ const CustomSortingGame: React.FC = () => {
   const [currentChairs, setCurrentChairs] = useState<Chair[]>([]);
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
-  const [savedCombinations, setSavedCombinations] = useState<
-    ChairCombination[]
-  >([]);
-  const [setCombinations, setSetCombinations] = useState<ChairCombination[]>(
-    []
-  );
-  const [otherCombinations, setOtherCombinations] = useState<
-    ChairCombination[]
-  >([]);
+  const [savedCombinations, setSavedCombinations] = useState<ChairCombination[]>([]);
+  const [setCombinations, setSetCombinations] = useState<ChairCombination[]>([]);
+  const [otherCombinations, setOtherCombinations] = useState<ChairCombination[]>([]);
   const [areChairsOpen, setAreChairsOpen] = useState(true);
 
   const saveCombination = async (
@@ -229,6 +223,23 @@ const CustomSortingGame: React.FC = () => {
       setLoading(false); // End loading
     }
   };
+
+  const prevChairsRef = React.useRef<number[]>([]);
+
+  useEffect(() => {
+    const currentIds = currentChairs.map((c) => c.id).sort((a, b) => a - b);
+    const prevIds = [...prevChairsRef.current].sort((a, b) => a - b);
+  
+    const hasChanged =
+      currentIds.length !== prevIds.length ||
+      currentIds.some((id, i) => id !== prevIds[i]);
+  
+    if (hasChanged && currentIds.length <= 5) {
+      handleCombinations();
+    }
+  
+    prevChairsRef.current = currentChairs.map((c) => c.id);
+  }, [currentChairs]);
 
   const isFormValid =
     category.trim() !== "" &&
@@ -437,7 +448,20 @@ const CustomSortingGame: React.FC = () => {
                 <h2 className="sectionTitle">For this set:</h2>
                 <div className="comboContainer">
                   {setCombinations.map((combo, index) => (
-                    <p className="combo" key={index}>
+                    <p
+                      className="combo"
+                      key={index}
+                      onClick={() =>
+                        setCurrentChairs(
+                          combo.chairs.map(
+                            (id) =>
+                              ALL_CHAIRS.find(
+                                (chair) => chair.id === id
+                              ) as Chair
+                          )
+                        )
+                      }
+                    >
                       <b>{combo.category}</b> <br></br>by {combo.author}
                     </p>
                   ))}
@@ -447,7 +471,20 @@ const CustomSortingGame: React.FC = () => {
                 <h2 className="sectionTitle">Others:</h2>
                 <div className="comboContainer">
                   {otherCombinations.map((combo, index) => (
-                    <p className="combo" key={index}>
+                    <p
+                      className="combo"
+                      key={index}
+                      onClick={() =>
+                        setCurrentChairs(
+                          combo.chairs.map(
+                            (id) =>
+                              ALL_CHAIRS.find(
+                                (chair) => chair.id === id
+                              ) as Chair
+                          )
+                        )
+                      }
+                    >
                       <b>{combo.category}</b> <br></br>by {combo.author}
                     </p>
                   ))}

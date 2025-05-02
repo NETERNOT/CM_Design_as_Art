@@ -3,7 +3,12 @@
   padding: 0;
   box-sizing: border-box;
   color: black;
+  user-select: none;
 }
+*::-webkit-scrollbar {
+  display: none;
+}
+
 
 .container {
   display: flex;
@@ -267,8 +272,6 @@ input{
   width: 30%;
   min-width: 10rem;
   padding-top: 1rem;
+  cursor: pointer;
 }
 
-.comboContainer::-webkit-scrollbar-track {
-  background: transparent;
-}
