@@ -254,3 +254,21 @@ input{
   height: 100%;
   padding: 1rem;
 }
+
+.comboContainer{
+  display:flex; 
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+.combo{
+  width: 30%;
+  min-width: 10rem;
+  padding-top: 1rem;
+}
+
+.comboContainer::-webkit-scrollbar-track {
+  background: transparent;
+}

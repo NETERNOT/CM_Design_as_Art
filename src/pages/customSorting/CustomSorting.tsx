@@ -154,6 +154,7 @@ const ALL_CHAIRS: Chair[] = [
 ];
 
 const CustomSortingGame: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [currentChairs, setCurrentChairs] = useState<Chair[]>([]);
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
@@ -193,47 +194,41 @@ const CustomSortingGame: React.FC = () => {
     }
   };
 
-  
   const handleCombinations = async () => {
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbyDzmG03yMUrEiVrw4kGFnaOjJ9S_3rc6-xhRsxtzWdS-_sfew4WIPVeuHVTw8v8Ooi/exec"
-    );
-    /*
-    const raw = await response.text();  // get raw text
-    console.log("Raw response:", raw);
-    
+    setLoading(true); // Start loading
     try {
-      const data = JSON.parse(raw);
-      console.log("Parsed data:", data);
-    } catch (err) {
-      console.error("Failed to parse JSON:", err);
-    }
-    */
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbyDzmG03yMUrEiVrw4kGFnaOjJ9S_3rc6-xhRsxtzWdS-_sfew4WIPVeuHVTw8v8Ooi/exec"
+      );
+      const data: ChairCombination[] = await response.json();
 
-    //break test
-    const data: ChairCombination[] = await response.json();
-    setSavedCombinations(data);
-  
-    // Use the freshly fetched data instead of relying on the state value
-    const currentIds = [...currentChairs.map((c) => c.id)].sort((a, b) => a - b);
-    const setMatches: ChairCombination[] = [];
-    const otherMatches: ChairCombination[] = [];
-  
-    savedCombinations.forEach((combo) => {
-      const sortedCombo = [...combo.chairs].sort((a, b) => a - b);
-      const isSame = JSON.stringify(sortedCombo) === JSON.stringify(currentIds);
-      if (isSame) {
-        setMatches.push(combo);
-      } else {
-        otherMatches.push(combo);
-      }
-    });
-  
-    setSetCombinations(setMatches);
-    setOtherCombinations(otherMatches);
+      setSavedCombinations(data);
+
+      const currentIds = [...currentChairs.map((c) => c.id)].sort(
+        (a, b) => a - b
+      );
+      const setMatches: ChairCombination[] = [];
+      const otherMatches: ChairCombination[] = [];
+
+      data.forEach((combo) => {
+        const sortedCombo = [...combo.chairs].sort((a, b) => a - b);
+        const isSame =
+          JSON.stringify(sortedCombo) === JSON.stringify(currentIds);
+        if (isSame) {
+          setMatches.push(combo);
+        } else {
+          otherMatches.push(combo);
+        }
+      });
+
+      setSetCombinations(setMatches);
+      setOtherCombinations(otherMatches);
+    } catch (error) {
+      console.error("Failed to fetch combinations:", error);
+    } finally {
+      setLoading(false); // End loading
+    }
   };
-  
-  setTimeout(handleCombinations, 5000);
 
   const isFormValid =
     category.trim() !== "" &&
@@ -411,58 +406,56 @@ const CustomSortingGame: React.FC = () => {
         <div id="right">
           {areChairsOpen ? (
             <div id="chairs">
-            {ALL_CHAIRS.map((chair) => {
-              const isSelected = currentChairs.some((c) => c.id === chair.id);
-              return (
-                <div
-                  key={chair.id}
-                  className={`chair-item-container ${
-                    isSelected ? "selected" : ""
-                  }`}
-                  onClick={() =>
-                    !isSelected &&
-                    currentChairs.length < 5 &&
-                    handleAddChair(chair)
-                  }
-                >
-                  <img
-                    src={chair.src}
-                    alt={`Chair ${chair.id}`}
-                    className="chair-Item"
-                  />
-                </div>
-              );
-            })}
-          </div>) : (
+              {ALL_CHAIRS.map((chair) => {
+                const isSelected = currentChairs.some((c) => c.id === chair.id);
+                return (
+                  <div
+                    key={chair.id}
+                    className={`chair-item-container ${
+                      isSelected ? "selected" : ""
+                    }`}
+                    onClick={() =>
+                      !isSelected &&
+                      currentChairs.length < 5 &&
+                      handleAddChair(chair)
+                    }
+                  >
+                    <img
+                      src={chair.src}
+                      alt={`Chair ${chair.id}`}
+                      className="chair-Item"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : loading ? (
+            <div className="loading">Loading...</div> // 👈 Replace with spinner if needed
+          ) : (
             <div id="combinations">
-            <div id="setCombinations">
-              <h2 className="sectionTitle">For this set:</h2>
-              <div className="comboContainer">
-                {setCombinations.map((combo, index) => (
-                  <p className="combo" key={index}>
-                    {combo.category} by {combo.author}
-                  </p>
-                ))}
-
+              <div id="setCombinations">
+                <h2 className="sectionTitle">For this set:</h2>
+                <div className="comboContainer">
+                  {setCombinations.map((combo, index) => (
+                    <p className="combo" key={index}>
+                      <b>{combo.category}</b> <br></br>by {combo.author}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div id="otherCombinations">
+                <h2 className="sectionTitle">Others:</h2>
+                <div className="comboContainer">
+                  {otherCombinations.map((combo, index) => (
+                    <p className="combo" key={index}>
+                      <b>{combo.category}</b> <br></br>by {combo.author}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
-            <div id="otherCombinations">
-            <h2 className="sectionTitle">Others:</h2>
-              <div className="comboContainer">
-                {otherCombinations.map((combo, index) => (
-                  <p className="combo" key={index}>
-                    {combo.category} by {combo.author}
-                  </p>
-                ))}
-
-              </div>
-            </div>
-          </div>
           )}
-          
         </div>
-
-
       </div>
     </div>
   );
