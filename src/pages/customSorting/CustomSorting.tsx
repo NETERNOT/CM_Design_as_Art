@@ -70,7 +70,6 @@ import Chair65 from "../../assets/chairs/chair65.svg";
 import Chair66 from "../../assets/chairs/chair66.svg";
 import Chair67 from "../../assets/chairs/chair67.svg";
 import Chair68 from "../../assets/chairs/chair68.svg";
-import { pre } from "framer-motion/client";
 
 interface Chair {
   id: number;
@@ -159,9 +158,9 @@ const CustomSortingGame: React.FC = () => {
   const [currentChairs, setCurrentChairs] = useState<Chair[]>([]);
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
-  const [savedCombinations, setSavedCombinations] = useState<
-    ChairCombination[]
-  >([]);
+  //const [savedCombinations, setSavedCombinations] = useState<
+  //  ChairCombination[]
+  //>([]);
   const [setCombinations, setSetCombinations] = useState<ChairCombination[]>(
     []
   );
@@ -187,11 +186,13 @@ const CustomSortingGame: React.FC = () => {
       }
     );
 
-    const text = await response.text();
-    if (text === "Success") {
-      alert("Combination saved!");
+    //const text = await response.text();
+    const message = await response.json();
+
+    if (message.message === "Success") {
+      alert("Success! Your order has been submitted. You can check yours and others on the Collections tab.");
     } else {
-      alert(text);
+      alert(message.message);
     }
   };
 
@@ -203,7 +204,7 @@ const CustomSortingGame: React.FC = () => {
       );
       const data: ChairCombination[] = await response.json();
 
-      setSavedCombinations(data);
+      //setSavedCombinations(data);
 
       const currentIds = [...currentChairs.map((c) => c.id)].sort(
         (a, b) => a - b
