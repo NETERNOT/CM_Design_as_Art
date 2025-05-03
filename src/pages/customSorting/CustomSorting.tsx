@@ -70,6 +70,7 @@ import Chair65 from "../../assets/chairs/chair65.svg";
 import Chair66 from "../../assets/chairs/chair66.svg";
 import Chair67 from "../../assets/chairs/chair67.svg";
 import Chair68 from "../../assets/chairs/chair68.svg";
+import { pre } from "framer-motion/client";
 
 interface Chair {
   id: number;
@@ -158,9 +159,15 @@ const CustomSortingGame: React.FC = () => {
   const [currentChairs, setCurrentChairs] = useState<Chair[]>([]);
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
-  const [savedCombinations, setSavedCombinations] = useState<ChairCombination[]>([]);
-  const [setCombinations, setSetCombinations] = useState<ChairCombination[]>([]);
-  const [otherCombinations, setOtherCombinations] = useState<ChairCombination[]>([]);
+  const [savedCombinations, setSavedCombinations] = useState<
+    ChairCombination[]
+  >([]);
+  const [setCombinations, setSetCombinations] = useState<ChairCombination[]>(
+    []
+  );
+  const [otherCombinations, setOtherCombinations] = useState<
+    ChairCombination[]
+  >([]);
   const [areChairsOpen, setAreChairsOpen] = useState(true);
 
   const saveCombination = async (
@@ -229,15 +236,15 @@ const CustomSortingGame: React.FC = () => {
   useEffect(() => {
     const currentIds = currentChairs.map((c) => c.id).sort((a, b) => a - b);
     const prevIds = [...prevChairsRef.current].sort((a, b) => a - b);
-  
+
     const hasChanged =
       currentIds.length !== prevIds.length ||
       currentIds.some((id, i) => id !== prevIds[i]);
-  
+
     if (hasChanged && currentIds.length <= 5) {
       handleCombinations();
     }
-  
+
     prevChairsRef.current = currentChairs.map((c) => c.id);
   }, [currentChairs]);
 
@@ -257,6 +264,10 @@ const CustomSortingGame: React.FC = () => {
 
   const handleReorder = (newChairs: Chair[]) => {
     setCurrentChairs(newChairs);
+    if (!areChairsOpen) {
+      setAuthor("");
+      setCategory("");
+    }
   };
 
   const handleRemoveChair = (id: number) => {
@@ -275,21 +286,29 @@ const CustomSortingGame: React.FC = () => {
   return (
     <div className="container">
       <div id="upperSection">
-        <div id="inputContainer">
-          <input
-            type="text"
-            placeholder="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          />
-          <div style={{ flexBasis: "100%", height: 0 }} />
-          <input
-            type="text"
-            placeholder="Author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-        </div>
+        {areChairsOpen ? (
+          <div className="upperUpper">
+            <input
+              type="text"
+              placeholder="Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            />
+            <div style={{ flexBasis: "100%", height: 0 }} />
+            <input
+              type="text"
+              placeholder="Author"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+            />
+          </div>
+        ) : (
+          <div className="upperUpper alt">
+            <p id="category">{category=="" ? "Custom" : category}</p>
+            <br />
+            <p id="author">by {author=="" ? "You" : author }</p>
+          </div>
+        )}
 
         <Reorder.Group
           axis="x"
@@ -312,8 +331,10 @@ const CustomSortingGame: React.FC = () => {
                   />
                 </div>
                 <svg
-                  className="removeChair"
-                  onClick={() => handleRemoveChair(chair.id)}
+                  className={`removeChair ${areChairsOpen ?"":"alt"}`}
+                  onClick={() => {
+                    if (areChairsOpen) handleRemoveChair(chair.id);
+                  }}
                   width="38"
                   height="37"
                   viewBox="0 0 38 37"
@@ -361,7 +382,7 @@ const CustomSortingGame: React.FC = () => {
           <div id="topicContainer">
             <div
               className={`topic ${areChairsOpen ? "open" : ""}`}
-              onClick={() => setAreChairsOpen(true)}
+              onClick={() => {setAreChairsOpen(true); setAuthor(""); setCategory("");} }
             >
               <p>Chairs</p>
               <svg
@@ -451,7 +472,7 @@ const CustomSortingGame: React.FC = () => {
                     <p
                       className="combo"
                       key={index}
-                      onClick={() =>
+                      onClick={() => {
                         setCurrentChairs(
                           combo.chairs.map(
                             (id) =>
@@ -459,8 +480,10 @@ const CustomSortingGame: React.FC = () => {
                                 (chair) => chair.id === id
                               ) as Chair
                           )
-                        )
-                      }
+                        );
+                        setAuthor(combo.author);
+                        setCategory(combo.category);
+                      }}
                     >
                       <b>{combo.category}</b> <br></br>by {combo.author}
                     </p>
@@ -474,7 +497,7 @@ const CustomSortingGame: React.FC = () => {
                     <p
                       className="combo"
                       key={index}
-                      onClick={() =>
+                      onClick={() => {
                         setCurrentChairs(
                           combo.chairs.map(
                             (id) =>
@@ -482,8 +505,10 @@ const CustomSortingGame: React.FC = () => {
                                 (chair) => chair.id === id
                               ) as Chair
                           )
-                        )
-                      }
+                        );
+                        setAuthor(combo.author);
+                        setCategory(combo.category);
+                      }}
                     >
                       <b>{combo.category}</b> <br></br>by {combo.author}
                     </p>

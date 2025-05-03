@@ -29,7 +29,7 @@
   padding: 2rem 0;
 }
 
-#inputContainer{
+#inputContainer, .upperUpper{
   display:flex;
   width: 20%;
   gap: .5rem;
@@ -37,6 +37,21 @@
   justify-content: center;
   padding:0 0 1rem 0
 }
+.upperUpper.alt{
+  gap: 0;
+  padding: 0 0 2.7rem 0;
+}
+
+#category, #author{
+  text-align: center;
+  width: 100%;
+}
+
+#category{
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
 input{
   position: relative;
   display: inline-block;
@@ -88,7 +103,7 @@ input{
 
   &:hover>.removeChair{
     opacity: .2;
-    &:hover{
+    &:hover:not(.alt){
       opacity: 1;
     }
   }
