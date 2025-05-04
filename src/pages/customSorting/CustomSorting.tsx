@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, Reorder } from "framer-motion";
-import "./customSorting.css";
+import "./CustomSorting.css";
 
 import Chair01 from "../../assets/chairs/chair01.svg";
 import Chair02 from "../../assets/chairs/chair02.svg";
