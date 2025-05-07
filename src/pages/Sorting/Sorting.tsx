@@ -171,6 +171,7 @@ const SortingGame: React.FC = () => {
 
   // Initialize the game with random chairs
   const initializeGame = () => {
+    
 
     setStars({
       function: false,
@@ -191,6 +192,7 @@ const SortingGame: React.FC = () => {
     
     setCurrentChairs(selectedChairs);
     setCorrectOrders(newCorrectOrders);
+
   };
 
   // Initialize on first render
@@ -282,7 +284,7 @@ const SortingGame: React.FC = () => {
               <div className="chair-stats">
                 <span>F:{chair.function}</span>
                 <span>A:{chair.aesthetics}</span>
-                <span>E:{chair.luxury}</span>
+                <span>L:{chair.luxury}</span>
               </div>
             </motion.div>
           </Reorder.Item>
