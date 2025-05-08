@@ -4,6 +4,7 @@ import "./Sorting.css";
 
 import StarIcon from "../../assets/star.svg";
 import EmptyStarIcon from "../../assets/empty-star.svg";
+import Bruno from "../../assets/BrunoMunari/face1.jpg";
 
 interface Chair {
   id: number;
@@ -13,76 +14,74 @@ interface Chair {
   luxury: number;
 }
 
-
-import Chair01 from '../../assets/chairs/chair01.svg';
-import Chair02 from '../../assets/chairs/chair02.svg';
-import Chair03 from '../../assets/chairs/chair03.svg';
-import Chair04 from '../../assets/chairs/chair04.svg';
-import Chair05 from '../../assets/chairs/chair05.svg';
-import Chair06 from '../../assets/chairs/chair06.svg';
-import Chair07 from '../../assets/chairs/chair07.svg';
-import Chair08 from '../../assets/chairs/chair08.svg';
-import Chair09 from '../../assets/chairs/chair09.svg';
-import Chair10 from '../../assets/chairs/chair10.svg';
-import Chair11 from '../../assets/chairs/chair11.svg';
-import Chair12 from '../../assets/chairs/chair12.svg';
-import Chair13 from '../../assets/chairs/chair13.svg';
-import Chair14 from '../../assets/chairs/chair14.svg';
-import Chair15 from '../../assets/chairs/chair15.svg';
-import Chair16 from '../../assets/chairs/chair16.svg';
-import Chair17 from '../../assets/chairs/chair17.svg';
-import Chair18 from '../../assets/chairs/chair18.svg';
-import Chair19 from '../../assets/chairs/chair19.svg';
-import Chair20 from '../../assets/chairs/chair20.svg';
-import Chair21 from '../../assets/chairs/chair21.svg';
-import Chair22 from '../../assets/chairs/chair22.svg';
-import Chair23 from '../../assets/chairs/chair23.svg';
-import Chair24 from '../../assets/chairs/chair24.svg';
-import Chair25 from '../../assets/chairs/chair25.svg';
-import Chair26 from '../../assets/chairs/chair26.svg';
-import Chair27 from '../../assets/chairs/chair27.svg';
-import Chair28 from '../../assets/chairs/chair28.svg';
-import Chair29 from '../../assets/chairs/chair29.svg';
-import Chair30 from '../../assets/chairs/chair30.svg';
-import Chair31 from '../../assets/chairs/chair31.svg';
-import Chair32 from '../../assets/chairs/chair32.svg';
-import Chair33 from '../../assets/chairs/chair33.svg';
-import Chair34 from '../../assets/chairs/chair34.svg';
-import Chair35 from '../../assets/chairs/chair35.svg';
-import Chair36 from '../../assets/chairs/chair36.svg';
-import Chair37 from '../../assets/chairs/chair37.svg';
-import Chair38 from '../../assets/chairs/chair38.svg';
-import Chair39 from '../../assets/chairs/chair39.svg';
-import Chair40 from '../../assets/chairs/chair40.svg';
-import Chair41 from '../../assets/chairs/chair41.svg';
-import Chair42 from '../../assets/chairs/chair42.svg';
-import Chair43 from '../../assets/chairs/chair43.svg';
-import Chair44 from '../../assets/chairs/chair44.svg';
-import Chair45 from '../../assets/chairs/chair45.svg';
-import Chair46 from '../../assets/chairs/chair46.svg';
-import Chair47 from '../../assets/chairs/chair47.svg';
-import Chair48 from '../../assets/chairs/chair48.svg';
-import Chair49 from '../../assets/chairs/chair49.svg';
-import Chair50 from '../../assets/chairs/chair50.svg';
-import Chair51 from '../../assets/chairs/chair51.svg';
-import Chair52 from '../../assets/chairs/chair52.svg';
-import Chair53 from '../../assets/chairs/chair53.svg';
-import Chair54 from '../../assets/chairs/chair54.svg';
-import Chair55 from '../../assets/chairs/chair55.svg';
-import Chair56 from '../../assets/chairs/chair56.svg';
-import Chair57 from '../../assets/chairs/chair57.svg';
-import Chair58 from '../../assets/chairs/chair58.svg';
-import Chair59 from '../../assets/chairs/chair59.svg';
-import Chair60 from '../../assets/chairs/chair60.svg';
-import Chair61 from '../../assets/chairs/chair61.svg';
-import Chair62 from '../../assets/chairs/chair62.svg';
-import Chair63 from '../../assets/chairs/chair63.svg';
-import Chair64 from '../../assets/chairs/chair64.svg';
-import Chair65 from '../../assets/chairs/chair65.svg';
-import Chair66 from '../../assets/chairs/chair66.svg';
-import Chair67 from '../../assets/chairs/chair67.svg';
-import Chair68 from '../../assets/chairs/chair68.svg';
-
+import Chair01 from "../../assets/chairs/chair01.svg";
+import Chair02 from "../../assets/chairs/chair02.svg";
+import Chair03 from "../../assets/chairs/chair03.svg";
+import Chair04 from "../../assets/chairs/chair04.svg";
+import Chair05 from "../../assets/chairs/chair05.svg";
+import Chair06 from "../../assets/chairs/chair06.svg";
+import Chair07 from "../../assets/chairs/chair07.svg";
+import Chair08 from "../../assets/chairs/chair08.svg";
+import Chair09 from "../../assets/chairs/chair09.svg";
+import Chair10 from "../../assets/chairs/chair10.svg";
+import Chair11 from "../../assets/chairs/chair11.svg";
+import Chair12 from "../../assets/chairs/chair12.svg";
+import Chair13 from "../../assets/chairs/chair13.svg";
+import Chair14 from "../../assets/chairs/chair14.svg";
+import Chair15 from "../../assets/chairs/chair15.svg";
+import Chair16 from "../../assets/chairs/chair16.svg";
+import Chair17 from "../../assets/chairs/chair17.svg";
+import Chair18 from "../../assets/chairs/chair18.svg";
+import Chair19 from "../../assets/chairs/chair19.svg";
+import Chair20 from "../../assets/chairs/chair20.svg";
+import Chair21 from "../../assets/chairs/chair21.svg";
+import Chair22 from "../../assets/chairs/chair22.svg";
+import Chair23 from "../../assets/chairs/chair23.svg";
+import Chair24 from "../../assets/chairs/chair24.svg";
+import Chair25 from "../../assets/chairs/chair25.svg";
+import Chair26 from "../../assets/chairs/chair26.svg";
+import Chair27 from "../../assets/chairs/chair27.svg";
+import Chair28 from "../../assets/chairs/chair28.svg";
+import Chair29 from "../../assets/chairs/chair29.svg";
+import Chair30 from "../../assets/chairs/chair30.svg";
+import Chair31 from "../../assets/chairs/chair31.svg";
+import Chair32 from "../../assets/chairs/chair32.svg";
+import Chair33 from "../../assets/chairs/chair33.svg";
+import Chair34 from "../../assets/chairs/chair34.svg";
+import Chair35 from "../../assets/chairs/chair35.svg";
+import Chair36 from "../../assets/chairs/chair36.svg";
+import Chair37 from "../../assets/chairs/chair37.svg";
+import Chair38 from "../../assets/chairs/chair38.svg";
+import Chair39 from "../../assets/chairs/chair39.svg";
+import Chair40 from "../../assets/chairs/chair40.svg";
+import Chair41 from "../../assets/chairs/chair41.svg";
+import Chair42 from "../../assets/chairs/chair42.svg";
+import Chair43 from "../../assets/chairs/chair43.svg";
+import Chair44 from "../../assets/chairs/chair44.svg";
+import Chair45 from "../../assets/chairs/chair45.svg";
+import Chair46 from "../../assets/chairs/chair46.svg";
+import Chair47 from "../../assets/chairs/chair47.svg";
+import Chair48 from "../../assets/chairs/chair48.svg";
+import Chair49 from "../../assets/chairs/chair49.svg";
+import Chair50 from "../../assets/chairs/chair50.svg";
+import Chair51 from "../../assets/chairs/chair51.svg";
+import Chair52 from "../../assets/chairs/chair52.svg";
+import Chair53 from "../../assets/chairs/chair53.svg";
+import Chair54 from "../../assets/chairs/chair54.svg";
+import Chair55 from "../../assets/chairs/chair55.svg";
+import Chair56 from "../../assets/chairs/chair56.svg";
+import Chair57 from "../../assets/chairs/chair57.svg";
+import Chair58 from "../../assets/chairs/chair58.svg";
+import Chair59 from "../../assets/chairs/chair59.svg";
+import Chair60 from "../../assets/chairs/chair60.svg";
+import Chair61 from "../../assets/chairs/chair61.svg";
+import Chair62 from "../../assets/chairs/chair62.svg";
+import Chair63 from "../../assets/chairs/chair63.svg";
+import Chair64 from "../../assets/chairs/chair64.svg";
+import Chair65 from "../../assets/chairs/chair65.svg";
+import Chair66 from "../../assets/chairs/chair66.svg";
+import Chair67 from "../../assets/chairs/chair67.svg";
+import Chair68 from "../../assets/chairs/chair68.svg";
 
 const ALL_CHAIRS: Chair[] = [
   { id: 1, src: Chair01, function: 6, aesthetics: 9, luxury: 4 },
@@ -162,7 +161,9 @@ const SortingGame: React.FC = () => {
     aesthetics: false,
     luxury: false,
   });
-  const [discoveredCategories, setDiscoveredCategories] = useState<string[]>([]);
+  const [discoveredCategories, setDiscoveredCategories] = useState<string[]>(
+    []
+  );
   const [correctOrders, setCorrectOrders] = useState<Record<string, number[]>>({
     function: [],
     aesthetics: [],
@@ -171,24 +172,29 @@ const SortingGame: React.FC = () => {
 
   // Initialize the game with random chairs
   const initializeGame = () => {
-
     setStars({
       function: false,
       aesthetics: false,
       luxury: false,
     });
-    
+
     // Shuffle and select 5 random chairs
     const shuffled = [...ALL_CHAIRS].sort(() => 0.5 - Math.random());
     const selectedChairs = shuffled.slice(0, 5);
-    
+
     // Calculate correct orders for these chairs
     const newCorrectOrders = {
-      function: [...selectedChairs].sort((a, b) => b.function - a.function).map(c => c.id),
-      aesthetics: [...selectedChairs].sort((a, b) => b.aesthetics - a.aesthetics).map(c => c.id),
-      luxury: [...selectedChairs].sort((a, b) => b.luxury - a.luxury).map(c => c.id),
+      function: [...selectedChairs]
+        .sort((a, b) => b.function - a.function)
+        .map((c) => c.id),
+      aesthetics: [...selectedChairs]
+        .sort((a, b) => b.aesthetics - a.aesthetics)
+        .map((c) => c.id),
+      luxury: [...selectedChairs]
+        .sort((a, b) => b.luxury - a.luxury)
+        .map((c) => c.id),
     };
-    
+
     setCurrentChairs(selectedChairs);
     setCorrectOrders(newCorrectOrders);
   };
@@ -202,24 +208,25 @@ const SortingGame: React.FC = () => {
   const checkOrder = (currentOrder: number[]) => {
     const newStars = { ...stars };
     const newDiscovered: string[] = [];
-    
+
     Object.entries(correctOrders).forEach(([category, correctOrder]) => {
-      const isMatch = JSON.stringify(currentOrder) === JSON.stringify(correctOrder);
+      const isMatch =
+        JSON.stringify(currentOrder) === JSON.stringify(correctOrder);
       if (isMatch && !stars[category as keyof typeof stars]) {
         newStars[category as keyof typeof stars] = true;
         newDiscovered.push(category);
       }
     });
-    
+
     setStars(newStars);
     if (newDiscovered.length > 0) {
-      setDiscoveredCategories(prev => [...prev, ...newDiscovered]);
+      setDiscoveredCategories((prev) => [...prev, ...newDiscovered]);
     }
   };
 
   const handleReorder = (newChairs: Chair[]) => {
     setCurrentChairs(newChairs);
-    const currentOrder = newChairs.map(chair => chair.id);
+    const currentOrder = newChairs.map((chair) => chair.id);
     checkOrder(currentOrder);
   };
 
@@ -234,17 +241,30 @@ const SortingGame: React.FC = () => {
   }, [discoveredCategories]);
 
   // Check if all stars are collected
-  const allStarsCollected = Object.values(stars).every(val => val);
+  const allStarsCollected = Object.values(stars).every((val) => val);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  useEffect(() => {
+    if (allStarsCollected) {
+      setTimeout(() => {
+        setIsPlaying(false);
+      }, 3600);
+    }
+  }, [allStarsCollected]);
 
   return (
-    <div className="container">
-      <div className="stars-container">
+    <div
+      className={`container secondTransition ${
+        allStarsCollected ? "disabled" : ""
+      }`}
+    >
+      <div className="stars-container secondTransition">
         {Object.entries(stars).map(([category, achieved]) => (
           <div key={category} className="star-wrapper">
-            <img 
-              src={achieved ? StarIcon : EmptyStarIcon} 
-              alt={`${category} star`} 
-              className={`star-icon ${achieved ? 'achieved' : ''}`}
+            <img
+              src={achieved ? StarIcon : EmptyStarIcon}
+              alt={`${category} star`}
+              className={`star-icon ${achieved ? "achieved" : ""}`}
             />
             <span className="category-label">{category}</span>
           </div>
@@ -257,17 +277,13 @@ const SortingGame: React.FC = () => {
         </div>
       )}
 
-      {allStarsCollected && (
-        <div className="discovery-message" style={{ color: 'green' }}>
-          All categories discovered! <button onClick={initializeGame}>Play Again</button>
-        </div>
-      )}
-
-      <Reorder.Group 
-        axis="x" 
-        values={currentChairs} 
+      <Reorder.Group
+        axis="x"
+        values={currentChairs}
         onReorder={handleReorder}
-        className="chairs-container"
+        className={`chairs-container ${
+          isPlaying ? "firstTransition" : "thirdTransition"
+        }`}
       >
         {currentChairs.map((chair) => (
           <Reorder.Item key={chair.id} value={chair}>
@@ -277,22 +293,71 @@ const SortingGame: React.FC = () => {
               whileHover={{ scale: 1.05 }}
             >
               <div className="chair-image-container">
-                <img src={chair.src} alt={`Chair ${chair.id}`} className="chair-image" />
+                <img
+                  src={chair.src}
+                  alt={`Chair ${chair.id}`}
+                  className="chair-image"
+                />
               </div>
               <div className="chair-stats">
                 <span>F:{chair.function}</span>
                 <span>A:{chair.aesthetics}</span>
-                <span>E:{chair.luxury}</span>
+                <span>L:{chair.luxury}</span>
               </div>
             </motion.div>
           </Reorder.Item>
         ))}
       </Reorder.Group>
 
-      <div className="hint-text">
+      <div
+        className={`hint-text ${
+          isPlaying ? "firstTransition" : "thirdTransition"
+        }`}
+      >
         Reorder the chairs to discover all three categories!
       </div>
-
+      <img src={Bruno} id="Author"></img>
+      <div
+        id="hiddenContent"
+        className={isPlaying ? "thirdTransition" : "firstTransition"}
+      >
+        <p>
+          Visual characterization makes for directness and immediacy. People
+          haven’t got time to stop in the street, size a poster up, see what it
+          refers to and then decide whether or not it interests them.
+          Communication must be instant and it must be exact. <br />
+          In how many ways and with what techniques can one produce variations
+          on the human face seen from the front? The graphic designer works
+          without set limit and without rejecting any possible technique. His
+          experiments in the visual lead him to try out all possible
+          combinations and methods in order to arrive at the precise image he
+          needs for the job in hand, and no other.
+        </p>
+        <div id="SortingLinks">
+          <button
+            onClick={() => {
+              initializeGame();
+              setTimeout(() => {
+                setIsPlaying(true);
+              }, 3600);
+            }}
+          >
+            Play Again
+          </button>
+          <button>Explore More</button>
+        </div>
+      </div>
+      {/*
+      <p id="teste">
+        {isPlaying.toString()} <br />
+        Transição cadeiras: {isPlaying
+          ? "firstTransition"
+          : "thirdTransition"}{" "}
+        <br />
+        Transição hiddenContent:{" "}
+        {isPlaying ? "thirdTransition" : "firstTransition"}
+      </p>
+      */}
     </div>
   );
 };

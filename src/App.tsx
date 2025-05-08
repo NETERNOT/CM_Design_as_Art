@@ -2,15 +2,15 @@
 
 
 import './App.css'
-//import SortingGame from './pages/sorting/Sorting'
+import SortingGame from './pages/sorting/Sorting'
 //import MemoryGame from './pages/memory/Memory'
-import CustomSortingGame from './pages/customSorting/CustomSorting'
+//import CustomSortingGame from './pages/customSorting/CustomSorting'
 
 function App() {
 
   return (
     <>
-      <CustomSortingGame />
+      <SortingGame />
     </>
   )
 }
