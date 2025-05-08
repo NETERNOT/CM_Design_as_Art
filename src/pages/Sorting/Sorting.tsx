@@ -316,7 +316,7 @@ const SortingGame: React.FC = () => {
       >
         Reorder the chairs to discover all three categories!
       </div>
-      <img src={Bruno} id="Author"></img>
+      <img src={Bruno} className="Author"></img>
       <div
         id="hiddenContent"
         className={isPlaying ? "thirdTransition" : "firstTransition"}

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Memory.css";
-
+import Bruno from "../../assets/BrunoMunari/face2.jpg";
 interface Face {
   id: number;
   src: string;
@@ -159,13 +159,19 @@ const Faces: Face[] = [
 const MemoryGame: React.FC = () => {
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
-  const [currentFace, setCurrentFace] = useState(Math.floor(Math.random() * Faces.length) + 1);
+  const [currentFace, setCurrentFace] = useState(
+    Math.floor(Math.random() * Faces.length) + 1
+  );
   const [facesSeen, setFacesSeen] = useState<number[]>([]);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const check = (a: number) => {
-    const condition = a === 0 ? facesSeen.includes(currentFace) : !facesSeen.includes(currentFace);
+    const condition =
+      a === 0
+        ? facesSeen.includes(currentFace)
+        : !facesSeen.includes(currentFace);
     let newLives = lives;
-    
+
     if (condition) {
       newLives = lives - 1;
       setLives(newLives);
@@ -175,23 +181,76 @@ const MemoryGame: React.FC = () => {
     if (!facesSeen.includes(currentFace)) {
       setFacesSeen([...facesSeen, currentFace]);
     }
-    if (newLives <= 0) {
-        alert("Game Over");
-    }
     setCurrentFace(Math.floor(Math.random() * Faces.length) + 1);
   };
 
+  useEffect(() => {
+    if (lives <= 0) {
+      setTimeout(() => {
+        setIsGameOver(true);
+      }, 2600);
+    }
+  }, [lives]);
+
+  const initializeGame = () => {
+    setScore(0);
+    setLives(3);
+    setFacesSeen([]);
+    setTimeout(() => {
+      setIsGameOver(false);
+    }, 2600);
+  };
+
   return (
-    <div className="container">
-      <p>
+    <div className={`${isGameOver? "t2":"t1"} container ${lives <= 0 ? "over" : ""}`}>
+
+
+      <p id="counters" className={isGameOver? "t2":"t1"}>
         Lives: {lives} | Score: {score}
       </p>
-      <div className="faces-container" style={{backgroundImage: `url(${Faces.find((face) => face.id === currentFace)?.src})`}}></div>
-      <img src={Faces.find((face) => face.id === currentFace)?.src} draggable="false"></img>
-      <div className="buttons">
-        <button onClick={() => check(1)}>Seen</button>
-        <button onClick={() => check(0)}>Next</button>
+
+
+      <div id="currentFace" className={isGameOver? "t2":"t1"}>
+        <img
+          src={Faces.find((face) => face.id === currentFace)?.src}
+          draggable="false"
+        />
+        <div id="hidden" className={isGameOver? "t2":"t1"}>
+          <h2>Final Score: {score}</h2>
+          <button id="restart" onClick={initializeGame}>
+            Play Again
+          </button>
+        </div>
       </div>
+
+
+      <div className={`buttons ${isGameOver? "t2":"t1"}`}>
+        <button onClick={() => check(1)} disabled={lives <= 0 ? true : false}>
+          Seen
+        </button>
+        <button onClick={() => check(0)} disabled={lives <= 0 ? true : false}>
+          Next
+        </button>
+      </div>
+
+
+      <img src={Bruno} className="Author" />
+      <p id="text" className={isGameOver ? "t1" : "t2"}>
+        Many of our activities today are conditioned by signs and symbols,
+        though so far these are only used for visual communication and
+        information. Each sign and each symbol has an exact meaning that is
+        recognized the world over: everyone everywhere knows what to do when
+        faced by a certain roadsign. We are already conditioned to doing what
+        these signs tell us to do, and know that we cannot ignore them without
+        being punished. Our movements on the roads are rigorously controlled: we
+        are told how fast we may go, in which direction, whether we take
+        precedence or must wait for others, what lane to drive in and when we
+        may or must stop. In this case no one may do as he wants to. Each of us
+        is part of the larger organism of human society, and just as in our
+        bodies each small organ must live in harmony with the others, so when we
+        move from place to place we must do it in harmony with others. To
+        neglect the rules is dangerous, because it fouls up the whole organism.
+      </p>
     </div>
   );
 };
