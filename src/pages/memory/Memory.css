@@ -146,8 +146,8 @@ body {
   top: 110%;
   width: 100%;
   height: 100%;
-  overflow: scroll;
-  padding: 0 2rem 2rem 2rem;
+/*   overflow: scroll;
+ */  padding: 0 2rem 2rem 2rem;
   box-sizing: border-box;
   font-size: 1.3rem;
   transition-duration: 0.5s;

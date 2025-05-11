@@ -245,7 +245,7 @@ const MemoryGame: React.FC = () => {
         being punished. Our movements on the roads are rigorously controlled: we
         are told how fast we may go, in which direction, whether we take
         precedence or must wait for others, what lane to drive in and when we
-        may or must stop. In this case no one may do as he wants to. Each of us
+        may or must stop. <br/>In this case no one may do as he wants to. Each of us
         is part of the larger organism of human society, and just as in our
         bodies each small organ must live in harmony with the others, so when we
         move from place to place we must do it in harmony with others. To
