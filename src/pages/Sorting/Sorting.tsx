@@ -323,7 +323,7 @@ const SortingGame: React.FC = () => {
       
       <div
         id="hiddenContent"
-        className={isPlaying ? "thirdTransition" : "firstTransition"}
+        className={isPlaying ? "secondTransition" : "firstTransition"}
       >
         <p>
           Visual characterization makes for directness and immediacy. People
