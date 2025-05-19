@@ -6,6 +6,7 @@ import CustomSortingGame from './pages/customSorting/CustomSorting';
 import Memory from './pages/memory/Memory';
 import Home from './pages/Homepage/Homepage.tsx';
 import SortingGame from './pages/Sorting/Sorting.tsx';
+import Signs from './pages/Signs/Signs.tsx';
 
 function App() {
   const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
@@ -81,6 +82,7 @@ function App() {
             <Route path="/customsorting" element={<CustomSortingGame />} />
             <Route path="/memory" element={<Memory />} />
             <Route path="/sorting" element={<SortingGame />} />
+            <Route path="/signal" element={<Signs />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import BrunoSigns from "../../assets/BrunoMunari/face3.jpg";
+import Button from "../../Button/Button";
 
 import ReactFlow, {
   Node,
@@ -7,11 +9,9 @@ import ReactFlow, {
   addEdge,
   useEdgesState,
   useNodesState,
-} 
-from "reactflow";
+} from "reactflow";
 import "reactflow/dist/style.css";
-import "./Signs.css"
-
+import "./Signs.css";
 
 import Signal01 from "../../assets/signals/signal01.svg";
 import Signal02 from "../../assets/signals/signal02.svg";
@@ -54,7 +54,6 @@ import Signal38 from "../../assets/signals/signal38.svg";
 import Signal39 from "../../assets/signals/signal39.svg";
 import Signal40 from "../../assets/signals/signal40.svg";
 
-// Sample ALL_SIGNS Array
 const ALL_SIGNALS = [
   { id: "1", src: Signal01, text: "Precedence" },
   { id: "2", src: Signal02, text: "Sleepy Town" },
@@ -114,46 +113,54 @@ const nodeStyle = {
   background: "#fff",
 };
 
+const createNodes = (signals: typeof ALL_SIGNALS) => {
+  const spacing = 200;
+
+  const imageNodes = signals.map((signal, index) => ({
+    id: `img-${signal.id}`,
+    type: "default",
+    position: { x: index * spacing, y: 0 },
+    data: {
+      label: <img src={signal.src} alt={signal.text} width={80} />,
+    },
+    style: nodeStyle,
+    targetPosition: "bottom",
+    sourcePosition: "bottom",
+  }));
+
+  const shuffledTextSignals = [...signals].sort(() => 0.5 - Math.random());
+
+  const textNodes = shuffledTextSignals.map((signal, index) => ({
+    id: `txt-${signal.id}`,
+    type: "default",
+    position: { x: index * spacing, y: 250 },
+    data: {
+      label: <strong>{signal.text}</strong>,
+    },
+    style: nodeStyle,
+    sourcePosition: "top",
+    targetPosition: "top",
+  }));
+
+  return [...imageNodes, ...textNodes];
+};
+
 export const Signs: React.FC = () => {
   const [correctConnections, setCorrectConnections] = useState(0);
-  const [signals] = useState(() => getRandomSignals()); // or
-
-  const nodes: Node[] = useMemo(() => {
-    const spacing = 200;
-
-    const imageNodes = signals.map((signal, index) => ({
-      id: `img-${signal.id}`,
-      type: "default",
-      position: { x: index * spacing, y: 0 },
-      data: {
-        label: <img src={signal.src} alt={signal.text} width={80} />,
-      },
-      style: nodeStyle,
-      targetPosition: "bottom",
-      sourcePosition: "bottom",
-    }));
-
-    // Shuffle the signals for text nodes
-    const shuffledTextSignals = [...signals].sort(() => 0.5 - Math.random());
-
-    const textNodes = shuffledTextSignals.map((signal, index) => ({
-      id: `txt-${signal.id}`,
-      type: "default",
-      position: { x: index * spacing, y: 250 },
-      data: {
-        label: <strong>{signal.text}</strong>,
-      },
-      style: nodeStyle,
-      sourcePosition: "top",
-      targetPosition: "top",
-    }));
-
-    return [...imageNodes, ...textNodes];
-  }, [signals]);
-
+  const [signals, setSignals] = useState(() => getRandomSignals());
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodesState, setNodes, onNodesChange] = useNodesState(() =>
+    createNodes(signals)
+  );
 
-  const [nodesState, setNodes, onNodesChange] = useNodesState(nodes);
+  const initializeGame = () => {
+    const newSignals = getRandomSignals();
+    setSignals(newSignals);
+    setEdges([]);
+    setCorrectConnections(0);
+    const newNodes = createNodes(newSignals);
+    setNodes(newNodes);
+  };
 
   const isValidConnection = (connection: Connection) => {
     if (!connection.source || !connection.target) return false;
@@ -170,17 +177,12 @@ export const Signs: React.FC = () => {
     (params: Connection) => {
       if (!isValidConnection(params)) return;
 
-      const signalIdFrom = params.source?.split("-")[1];
-      const signalIdTo = params.target?.split("-")[1];
-
-      const isCorrect = signalIdFrom === signalIdTo;
-
       const edge: Edge = {
         ...params,
         id: `${params.source}-${params.target}`,
         type: "default",
         animated: false,
-        style: { stroke: isCorrect ? "green" : "red", strokeWidth: 5 },
+        style: { stroke: "black", strokeWidth: 5 },
         reconnectable: true,
       };
 
@@ -204,9 +206,13 @@ export const Signs: React.FC = () => {
   }, [edges]);
 
   return (
-    <div className="container" style={{ height: "100dvh", width: "100%" }}>
+    <div
+      className={`signsContainer ${
+        correctConnections === 5 ? "completed" : ""
+      }`}
+    >
       <ReactFlow
-        className={`game ${correctConnections === 5 ? "completed" : ""}`}
+        className={`game `}
         nodes={nodesState}
         edges={edges}
         onNodesChange={onNodesChange}
@@ -221,40 +227,62 @@ export const Signs: React.FC = () => {
         zoomOnPinch={false}
         zoomOnDoubleClick={false}
       ></ReactFlow>
-      {edges.length >=5 && 
+
+      {edges.length >= 5 &&
         (correctConnections === 5 ? (
-        <div
-          style={{
-            position: "absolute",
-            top: "90%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            marginTop: 20,
-            background: "lightgreen",
-            padding: 20,
-            textAlign: "center",
-          }}
-        >
-          🎉 All connections are correct!
-        </div>
-      ) : (
-        <div
-          style={{
-            position: "absolute",
-            top: "90%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            marginTop: 20,
-            background: "lightgray",
-            padding: 20,
-            textAlign: "center",
-          }}
-        >
-          Somethings wrong, try again!
-        </div>
-      )
-      
-      )}
+          <div
+            className="completedMessage"
+            style={{
+              position: "absolute",
+              top: "90%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              marginTop: 20,
+              background: "lightgreen",
+              padding: 20,
+              textAlign: "center",
+            }}
+          >
+            🎉 All connections are correct!
+          </div>
+        ) : (
+          <div
+            style={{
+              position: "absolute",
+              top: "90%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              marginTop: 20,
+              background: "lightgray",
+              padding: 20,
+              textAlign: "center",
+            }}
+          >
+            Somethings wrong, try again!
+          </div>
+        ))}
+
+      <img id="signsAuthor" src={BrunoSigns} />
+      <div id="signsHidden">
+      <Button action={initializeGame} label="Play Again"/>
+        <p>
+          Many of our activities today are conditioned by signs and symbols,
+          though so far these are only used for visual communication and
+          information. Each sign and each symbol has an exact meaning that is
+          recognized the world over: everyone everywhere knows what to do when
+          faced by a certain roadsign. We are already conditioned to doing what
+          these signs tell us to do, and know that we cannot ignore them without
+          being punished. Our movements on the roads are rigorously controlled:
+          we are told how fast we may go, in which direction, whether we take
+          precedence or must wait for others, what lane to drive in and when we
+          may or must stop. <br />
+          In this case no one may do as he wants to. Each of us is part of the
+          larger organism of human society, and just as in our bodies each small
+          organ must live in harmony with the others, so when we move from place
+          to place we must do it in harmony with others. To neglect the rules is
+          dangerous, because it fouls up the whole organism.
+        </p>
+      </div>
     </div>
   );
 };
