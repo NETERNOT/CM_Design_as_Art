@@ -188,7 +188,6 @@ import signal37 from "../../assets/signals/signal37.svg";
 import signal38 from "../../assets/signals/signal38.svg";
 import signal39 from "../../assets/signals/signal39.svg";
 import signal40 from "../../assets/signals/signal40.svg";
-
 // Combine all chairs and faces into a single array with type identifiers
 const allChairs = [
   Chair01, Chair02, Chair03, Chair04, Chair05, Chair06, Chair07, Chair08, Chair09, Chair10,
@@ -240,6 +239,9 @@ const Homepage: React.FC = () => {
     chair: allChairs[0],
     signal: allSignals[0]
   });
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up');
+  const scrollSpeed = 0.5;
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // Function to get random items from each category
   const getRandomSvgs = () => {
@@ -290,16 +292,62 @@ const Homepage: React.FC = () => {
     setVisibleItems(Math.max(allItems.length, itemsPerRow * rows));
     setShuffledItems(shuffleArray(allItems));
     getRandomSvgs();
-
-   
   }, [windowSize]);
+
+  useEffect(() => {
+    if (!scrollRef.current) return;
+
+    let scrollPosition = 0;
+    let maxScroll = scrollRef.current.scrollHeight - window.innerHeight;
+    let animationFrameId: number;
+
+    const animateScroll = () => {
+      if (!scrollRef.current) return;
+
+      if (scrollDirection === 'up') {
+        scrollPosition -= scrollSpeed;
+        if (scrollPosition <= 0) {
+          scrollPosition = 0;
+          setScrollDirection('down');
+        }
+      } else {
+        scrollPosition += scrollSpeed;
+        if (scrollPosition >= maxScroll) {
+          scrollPosition = maxScroll;
+          setScrollDirection('up');
+        }
+      }
+
+      scrollRef.current.scrollTop = scrollPosition;
+      animationFrameId = requestAnimationFrame(animateScroll);
+    };
+
+    animationFrameId = requestAnimationFrame(animateScroll);
+
+    const handleResize = () => {
+      maxScroll = scrollRef.current ? scrollRef.current.scrollHeight - window.innerHeight : 0;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [scrollDirection]);
 
   return (
     <div className="homepage">
       <div className="grid-container">
-        <div ref={containerRef} className="items-container">
+        <div 
+          ref={scrollRef} 
+          className="items-container"
+          style={{
+            overflowY: 'hidden',
+            height: '100vh'
+          }}
+        >
           {Array.from({ length: visibleItems }).map((_, index) => {
-            // Use modulo to cycle through shuffled items if needed
             const itemIndex = index % shuffledItems.length;
             return (
               <GridItem 
@@ -310,42 +358,38 @@ const Homepage: React.FC = () => {
           })}
         </div>
       </div>
-      <div id="cursor"></div>
       
       <div className="content-section">
-      <h1 className="title">Design as Art</h1>
-<p className="text">
-A work based on the book "Design as Art" by Bruno Munari<br/>A website by Nuno Pinto and Pedro Anjinho in the context of the Multimedia Communication discipline at the University of Coimbra
-</p>
+        <h1 className="title">Design as Art</h1>
+        <p className="text">
+          A work based on the book "Design as Art" by Bruno Munari<br/>
+          A website by Nuno Pinto and Pedro Anjinho in the context of the Multimedia Communication discipline at the University of Coimbra
+        </p>
         
         <div className="bottom-svgs">
           <Link to="/memory">
-          <motion.div 
-            className="bottom-svg-container "
-        
-            whileHover={{ scale: 1.1 }}
-          
-          >
-            <img src={randomSvgs.face} alt="Random Face" className="bottom-svg" />
-          </motion.div>
+            <motion.div 
+              className="bottom-svg-container"
+              whileHover={{ scale: 1.1 }}
+            >
+              <img src={randomSvgs.face} alt="Random Face" className="bottom-svg" />
+            </motion.div>
           </Link>
           <Link to="/sorting">
-          <motion.div 
-            className="bottom-svg-container"
-            whileHover={{ scale: 1.1 }}
-
-          >
-            <img src={randomSvgs.chair} alt="Random Chair" className="bottom-svg" />
-          </motion.div>
+            <motion.div 
+              className="bottom-svg-container"
+              whileHover={{ scale: 1.1 }}
+            >
+              <img src={randomSvgs.chair} alt="Random Chair" className="bottom-svg" />
+            </motion.div>
           </Link>
           <Link to="/signal">
-          <motion.div 
-            className="bottom-svg-container"
-            whileHover={{ scale: 1.1 }}
-
-          >
-            <img src={randomSvgs.signal} alt="Random Signal" className="bottom-svg" />
-          </motion.div>
+            <motion.div 
+              className="bottom-svg-container"
+              whileHover={{ scale: 1.1 }}
+            >
+              <img src={randomSvgs.signal} alt="Random Signal" className="bottom-svg" />
+            </motion.div>
           </Link>
         </div>
       </div>
@@ -427,9 +471,6 @@ const GridItem: React.FC<GridItemProps> = ({ item }) => {
 };
 
 export default Homepage;
-
-
-
 
 
 

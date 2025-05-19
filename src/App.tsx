@@ -50,33 +50,7 @@ function App() {
       mouse.y = -((e.clientY / window.innerHeight) * 2 - 1);
     });
 
-    const interactiveElements = document.querySelectorAll('button, a, [data-interactive]');
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        isHovering = true;
-        cursorSize = 80;
-        cursor.style.width = `${cursorSize}px`;
-        cursor.style.height = `${cursorSize}px`;
-      });
-
-      el.addEventListener('mouseleave', () => {
-        isHovering = false;
-        cursorSize = 40;
-        cursor.style.width = `${cursorSize}px`;
-        cursor.style.height = `${cursorSize}px`;
-        cursor.style.background = 'white';
-      });
-    });
-
-    document.addEventListener('mousedown', () => {
-      cursor.style.width = `${cursorSize * 0.3}px`;
-      cursor.style.height = `${cursorSize * 0.3}px`;
-    });
-
-    document.addEventListener('mouseup', () => {
-      cursor.style.width = `${cursorSize}px`;
-      cursor.style.height = `${cursorSize}px`;
-    });
+   
 
     function animateCursor() {
       const currentX = parseFloat(cursor.style.left) || targetX;
