@@ -1,4 +1,7 @@
-
+body {
+cursor: none;
+overflow: hidden;
+}
 
 #cursor {
     position: fixed;

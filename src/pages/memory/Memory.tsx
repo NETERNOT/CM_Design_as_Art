@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Memory.css";
 import Bruno from "../../assets/BrunoMunari/face2.jpg";
 import { Link, useLocation } from "react-router-dom";
+import Button from "../../Button/Button";
 interface Face {
   id: number;
   src: string;
@@ -226,12 +227,10 @@ const MemoryGame: React.FC = () => {
 
 
       <div className={`buttons ${isGameOver? "t2":"t1"}`}>
-        <button onClick={() => check(1)} disabled={lives <= 0 ? true : false}>
-          Seen
-        </button>
-        <button onClick={() => check(0)} disabled={lives <= 0 ? true : false}>
-          Next
-        </button>
+   
+
+        <Button action={() => check(1)} isdisabled={lives <= 0 ? true : false} label="Seen"/>
+        <Button action={() => check(0)} isdisabled={lives <= 0 ? true : false} label="New"/>
       </div>
 
 
