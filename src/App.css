@@ -1,6 +1,5 @@
 body {
 cursor: none;
-overflow: hidden;
 }
 
 #cursor {
@@ -18,4 +17,9 @@ overflow: hidden;
       height 0.3s ease-out,
       background 0.2s ease;
     will-change: transform;
+  }
+
+  .App{
+    width: 100vw;
+    height: 100vh;
   }

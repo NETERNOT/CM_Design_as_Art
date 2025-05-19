@@ -1,7 +1,4 @@
-/* :root {
-  overflow: hidden;
-}
- */
+
 .sortingContainer {
     position: relative;
     display: flex;
@@ -45,9 +42,11 @@
     align-self: flex-start;
     padding: 2rem;
     width: 50dvw;
-    z-index: -1;
+    height: 75dvh;
     color: black;
     &>p{
+      flex: 1;
+      overflow: scroll;
       font-size: 1.67rem;
       padding-bottom: 1rem;
     }
