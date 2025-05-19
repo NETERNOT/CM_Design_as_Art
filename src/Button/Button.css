@@ -13,3 +13,17 @@ color: aliceblue;
 border: none;
   }
 
+
+
+  .back svg{
+    position: absolute;
+    top: 5vh;
+    left: 5vw;
+width:60px;
+height: 60px;
+    z-index: -1;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 200;
+    cursor: none;
+  }
+  

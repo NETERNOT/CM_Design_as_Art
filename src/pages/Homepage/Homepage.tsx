@@ -379,6 +379,7 @@ const Homepage: React.FC = () => {
             <motion.div 
               className="bottom-svg-container"
               whileHover={{ scale: 1.1 }}
+              
             >
               <img src={randomSvgs.chair} alt="Random Chair" className="bottom-svg" />
             </motion.div>
