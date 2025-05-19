@@ -204,61 +204,72 @@ const MemoryGame: React.FC = () => {
   };
 
   return (
-    <div className={`${isGameOver? "t2":"t1"} memoryContainer ${lives <= 0 ? "over" : ""}`}>
+    <div
+      className={`${isGameOver ? "t2" : "t1"} memoryContainer ${
+        lives <= 0 ? "over" : ""
+      }`}
+    >
+      <div className="back">
+        <Link to="/">
+          <svg
+            width="380"
+            height="521"
+            viewBox="0 0 380 521"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M265.476 483.612C260.979 499.198 257.748 510.476 254.898 520.359C217.968 522.577 3.79931 301.14 -0.000678811 256.219C41.2993 165.173 167.292 67.9194 239.125 -0.000551825C250.97 9.37646 260.219 16.6624 267.82 22.6814C261.929 127.666 82.6003 164.793 80.1303 268.194C148.289 337.127 207.262 405.871 265.413 483.612L265.476 483.612Z"
+              fill="black"
+            />
+            <path
+              d="M373.163 62.3454C374.81 71.2164 377.027 82.6834 379.117 93.7074C333.889 160.487 251.224 185.64 210.493 255.017C243.623 332.504 384.882 397.89 352.829 490.139C305.384 500.974 156.587 284.352 134.733 250.012C154.623 207.182 320.143 36.3054 373.163 62.2824L373.163 62.3454Z"
+              fill="black"
+            />
+          </svg>
+        </Link>
+      </div>
 
-<div className="back">
-  <Link to="/">
-  <svg width="380" height="521" viewBox="0 0 380 521" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M265.476 483.612C260.979 499.198 257.748 510.476 254.898 520.359C217.968 522.577 3.79931 301.14 -0.000678811 256.219C41.2993 165.173 167.292 67.9194 239.125 -0.000551825C250.97 9.37646 260.219 16.6624 267.82 22.6814C261.929 127.666 82.6003 164.793 80.1303 268.194C148.289 337.127 207.262 405.871 265.413 483.612L265.476 483.612Z" fill="black"/>
-<path d="M373.163 62.3454C374.81 71.2164 377.027 82.6834 379.117 93.7074C333.889 160.487 251.224 185.64 210.493 255.017C243.623 332.504 384.882 397.89 352.829 490.139C305.384 500.974 156.587 284.352 134.733 250.012C154.623 207.182 320.143 36.3054 373.163 62.2824L373.163 62.3454Z" fill="black"/>
-</svg>
-
-</Link>
-
-</div>
-
-      <p id="counters" className={isGameOver? "t2":"t1"}>
+      <p id="counters" className={isGameOver ? "t2" : "t1"}>
         Lives: {lives} | Score: {score}
       </p>
 
-
-      <div id="currentFace" className={isGameOver? "t2":"t1"}>
+      <div id="currentFace" className={isGameOver ? "t2" : "t1"}>
         <img
           src={Faces.find((face) => face.id === currentFace)?.src}
           draggable="false"
         />
-        <div id="hidden" className={isGameOver? "t2":"t1"}>
+        <div id="hidden" className={isGameOver ? "t2" : "t1"}>
           <h2>Final Score: {score}</h2>
-    
-          <Button action={initializeGame} label="Play Again"  />
+
+          <Button action={initializeGame} label="Play Again" />
         </div>
       </div>
 
-
-      <div className={`buttons ${isGameOver? "t2":"t1"}`}>
-   
-
-        <Button action={() => check(1)} isdisabled={lives <= 0 ? true : false} label="Seen"/>
-        <Button action={() => check(0)} isdisabled={lives <= 0 ? true : false} label="New"/>
+      <div className={`buttons ${isGameOver ? "t2" : "t1"}`}>
+        <Button
+          action={() => check(1)}
+          isdisabled={lives <= 0 ? true : false}
+          label="Seen"
+        />
+        <Button
+          action={() => check(0)}
+          isdisabled={lives <= 0 ? true : false}
+          label="New"
+        />
       </div>
-
 
       <img src={Bruno} className="Author" />
       <p id="text" className={isGameOver ? "t1" : "t2"}>
-        Many of our activities today are conditioned by signs and symbols,
-        though so far these are only used for visual communication and
-        information. Each sign and each symbol has an exact meaning that is
-        recognized the world over: everyone everywhere knows what to do when
-        faced by a certain roadsign. We are already conditioned to doing what
-        these signs tell us to do, and know that we cannot ignore them without
-        being punished. Our movements on the roads are rigorously controlled: we
-        are told how fast we may go, in which direction, whether we take
-        precedence or must wait for others, what lane to drive in and when we
-        may or must stop. <br/>In this case no one may do as he wants to. Each of us
-        is part of the larger organism of human society, and just as in our
-        bodies each small organ must live in harmony with the others, so when we
-        move from place to place we must do it in harmony with others. To
-        neglect the rules is dangerous, because it fouls up the whole organism.
+        Visual characterization makes for directness and immediacy. People
+        haven’t got time to stop in the street, size a poster up, see what it
+        refers to and then decide whether or not it interests them.
+        Communication must be instant and it must be exact. <br/>In how many ways and
+        with what techniques can one produce variations on the human face seen
+        from the front? The graphic designer works without set limit and without
+        rejecting any possible technique. His experiments in the visual lead him
+        to try out all possible combinations and methods in order to arrive at
+        the precise image he needs for the job in hand, and no other.
       </p>
     </div>
   );
