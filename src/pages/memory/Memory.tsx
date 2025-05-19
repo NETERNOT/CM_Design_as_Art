@@ -204,7 +204,7 @@ const MemoryGame: React.FC = () => {
   };
 
   return (
-    <div className={`${isGameOver? "t2":"t1"} container ${lives <= 0 ? "over" : ""}`}>
+    <div className={`${isGameOver? "t2":"t1"} memoryContainer ${lives <= 0 ? "over" : ""}`}>
 
 
       <p id="counters" className={isGameOver? "t2":"t1"}>

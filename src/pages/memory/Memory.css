@@ -18,11 +18,11 @@ body {
   overflow: hidden;
 }
 
-.container {
+.memoryContainer {
   width: 100dvw;
   height: 100dvh;
   position: relative;
-  bottom: 2rem;
+  bottom: 0rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
