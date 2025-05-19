@@ -408,7 +408,7 @@ interface GridItemProps {
 const GridItem: React.FC<GridItemProps> = ({ item }) => {
   const [currentItem, setCurrentItem] = useState(item);
   const [canChange, setCanChange] = useState(true);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<number | null>(null);
   const isFirstHover = useRef(true);
 
   const getRandomItem = () => {
@@ -429,12 +429,12 @@ const GridItem: React.FC<GridItemProps> = ({ item }) => {
     } else {
       setCanChange(false);
       
-      if (timeoutRef.current) {
+      if (timeoutRef.current !== null) {
         clearTimeout(timeoutRef.current);
       }
       
-      timeoutRef.current = setTimeout(() => {
-        setCanChange(true);
+      timeoutRef.current = window.setTimeout(() => {
+       setCanChange(true);
       }, 2000);
     }
   };
