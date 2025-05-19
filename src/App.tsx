@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
-import MemoryGame from './pages/memory/Memory';
 import CustomSortingGame from './pages/customSorting/CustomSorting';
 import Memory from './pages/memory/Memory';
 import Home from './pages/Homepage/Homepage.tsx';
@@ -27,7 +26,6 @@ function App() {
     let targetX = window.innerWidth / 2;
     let targetY = window.innerHeight / 2;
     let cursorSize = 40;
-    let isHovering = false;
 
     const mouse = { x: 0, y: 0 };
 
@@ -53,6 +51,7 @@ function App() {
    
 
     function animateCursor() {
+      if (!cursor) return;
       const currentX = parseFloat(cursor.style.left) || targetX;
       const currentY = parseFloat(cursor.style.top) || targetY;
 
@@ -60,6 +59,7 @@ function App() {
       const newX = currentX + (targetX - currentX) * lerpFactor;
       const newY = currentY + (targetY - currentY) * lerpFactor;
 
+      if (!cursor) return;
       cursor.style.left = `${newX}px`;
       cursor.style.top = `${newY}px`;
 

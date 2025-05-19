@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Memory.css";
 import Bruno from "../../assets/BrunoMunari/face2.jpg";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../Button/Button";
 interface Face {
   id: number;

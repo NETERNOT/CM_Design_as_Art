@@ -360,7 +360,7 @@ const SortingGame: React.FC = () => {
             }}label="Play Again"/>
         
           <Link to="/customsorting">
-          <Button label="Explore More"/>
+          <Button label="Explore More" action={() => console.log("Clicked")} />
           </Link>
         </div>
       </div>

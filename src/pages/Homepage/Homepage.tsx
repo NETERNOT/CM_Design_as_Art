@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import './Homepage.css';
 
@@ -408,7 +408,7 @@ interface GridItemProps {
 const GridItem: React.FC<GridItemProps> = ({ item }) => {
   const [currentItem, setCurrentItem] = useState(item);
   const [canChange, setCanChange] = useState(true);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isFirstHover = useRef(true);
 
   const getRandomItem = () => {

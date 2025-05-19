@@ -116,7 +116,7 @@ const nodeStyle = {
 
 export const Signs: React.FC = () => {
   const [correctConnections, setCorrectConnections] = useState(0);
-  const [signals, setSignals] = useState(() => getRandomSignals());
+  const [signals] = useState(() => getRandomSignals()); // or
 
   const nodes: Node[] = useMemo(() => {
     const spacing = 200;
