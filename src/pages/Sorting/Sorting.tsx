@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, Reorder } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Sorting.css";
 
 import StarIcon from "../../assets/star.svg";
@@ -243,6 +243,7 @@ const SortingGame: React.FC = () => {
 
   // Check if all stars are collected
   const allStarsCollected = Object.values(stars).every((val) => val);
+  
   const [isPlaying, setIsPlaying] = useState(true);
 
   useEffect(() => {
@@ -255,7 +256,7 @@ const SortingGame: React.FC = () => {
 
   return (
     <div
-      className={`container secondTransition ${
+      className={`sortingContainer secondTransition ${
         allStarsCollected ? "disabled" : ""
       }`}
     >
@@ -317,7 +318,9 @@ const SortingGame: React.FC = () => {
       >
         Reorder the chairs to discover all three categories!
       </div>
+
       <img src={Bruno} className="Author"></img>
+      
       <div
         id="hiddenContent"
         className={isPlaying ? "thirdTransition" : "firstTransition"}
@@ -350,17 +353,7 @@ const SortingGame: React.FC = () => {
           </Link>
         </div>
       </div>
-      {/*
-      <p id="teste">
-        {isPlaying.toString()} <br />
-        Transição cadeiras: {isPlaying
-          ? "firstTransition"
-          : "thirdTransition"}{" "}
-        <br />
-        Transição hiddenContent:{" "}
-        {isPlaying ? "thirdTransition" : "firstTransition"}
-      </p>
-      */}
+
     </div>
   );
 };
