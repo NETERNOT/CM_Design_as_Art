@@ -4,12 +4,13 @@ import BrunoSigns from "../../assets/BrunoMunari/face3.jpg";
 import Button from "../../Button/Button";
 
 import ReactFlow, {
-  Node,
   Edge,
   Connection,
   addEdge,
   useEdgesState,
   useNodesState,
+  Node,
+  Position
 } from "reactflow";
 import "reactflow/dist/style.css";
 import "./Signs.css";
@@ -59,7 +60,7 @@ const ALL_SIGNALS = [
   { id: "1", src: Signal01, text: "Precedence" },
   { id: "2", src: Signal02, text: "Sleepy Town" },
   { id: "3", src: Signal03, text: "Two-pin Socket" },
-  { id: "4", src: Signal04, text: "It’s Fine Here" },
+  { id: "4", src: Signal04, text: "It's Fine Here" },
   { id: "5", src: Signal05, text: "Switch" },
   { id: "6", src: Signal06, text: "Parking" },
   { id: "7", src: Signal07, text: "Wait Here" },
@@ -98,6 +99,10 @@ const ALL_SIGNALS = [
   { id: "40", src: Signal40, text: "Danger" },
 ];
 
+interface SignalNodeData {
+  label: React.ReactNode; // Changed from JSX.Element to React.ReactNode
+}
+
 const getRandomSignals = (count = 5) => {
   const shuffled = [...ALL_SIGNALS].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
@@ -114,10 +119,10 @@ const nodeStyle = {
   background: "#fff",
 };
 
-const createNodes = (signals: typeof ALL_SIGNALS) => {
+const createNodes = (signals: typeof ALL_SIGNALS): Node<SignalNodeData>[] => {
   const spacing = 200;
 
-  const imageNodes = signals.map((signal, index) => ({
+  const imageNodes: Node<SignalNodeData>[] = signals.map((signal, index) => ({
     id: `img-${signal.id}`,
     type: "default",
     position: { x: index * spacing, y: 0 },
@@ -125,13 +130,13 @@ const createNodes = (signals: typeof ALL_SIGNALS) => {
       label: <img src={signal.src} alt={signal.text} width={80} />,
     },
     style: nodeStyle,
-    targetPosition: "bottom",
-    sourcePosition: "bottom",
+    targetPosition: Position.Bottom,
+    sourcePosition: Position.Bottom,
   }));
 
   const shuffledTextSignals = [...signals].sort(() => 0.5 - Math.random());
 
-  const textNodes = shuffledTextSignals.map((signal, index) => ({
+  const textNodes: Node<SignalNodeData>[] = shuffledTextSignals.map((signal, index) => ({
     id: `txt-${signal.id}`,
     type: "default",
     position: { x: index * spacing, y: 250 },
@@ -139,8 +144,8 @@ const createNodes = (signals: typeof ALL_SIGNALS) => {
       label: <strong>{signal.text}</strong>,
     },
     style: nodeStyle,
-    sourcePosition: "top",
-    targetPosition: "top",
+    sourcePosition: Position.Top,
+    targetPosition: Position.Top,
   }));
 
   return [...imageNodes, ...textNodes];
@@ -149,9 +154,9 @@ const createNodes = (signals: typeof ALL_SIGNALS) => {
 export const Signs: React.FC = () => {
   const [correctConnections, setCorrectConnections] = useState(0);
   const [signals, setSignals] = useState(() => getRandomSignals());
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [nodesState, setNodes, onNodesChange] = useNodesState(() =>
-    createNodes(signals)
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+  const [nodesState, setNodes, onNodesChange] = useNodesState<SignalNodeData>(
+    createNodes(signals) // Removed the arrow function wrapper
   );
 
   const initializeGame = () => {
@@ -185,11 +190,15 @@ export const Signs: React.FC = () => {
         animated: false,
         style: { stroke: "black", strokeWidth: 5 },
         reconnectable: true,
+        source: params.source || '',
+        target: params.target || '',
+        sourceHandle: params.sourceHandle || null,
+        targetHandle: params.targetHandle || null,
       };
 
       setEdges((eds) => addEdge(edge, eds));
     },
-    [edges]
+    [edges, setEdges]
   );
 
   const onEdgeClick = (_: React.MouseEvent, edge: Edge) => {
@@ -207,26 +216,17 @@ export const Signs: React.FC = () => {
   }, [edges]);
 
   return (
-
-    
-    <div
-      className={`signsContainer ${
-        correctConnections === 5 ? "completed" : ""
-      }`}
-    >
-
-<div className="back">
-  <Link to="/">
-  <svg width="380" height="521" viewBox="0 0 380 521" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M265.476 483.612C260.979 499.198 257.748 510.476 254.898 520.359C217.968 522.577 3.79931 301.14 -0.000678811 256.219C41.2993 165.173 167.292 67.9194 239.125 -0.000551825C250.97 9.37646 260.219 16.6624 267.82 22.6814C261.929 127.666 82.6003 164.793 80.1303 268.194C148.289 337.127 207.262 405.871 265.413 483.612L265.476 483.612Z" fill="black"/>
-<path d="M373.163 62.3454C374.81 71.2164 377.027 82.6834 379.117 93.7074C333.889 160.487 251.224 185.64 210.493 255.017C243.623 332.504 384.882 397.89 352.829 490.139C305.384 500.974 156.587 284.352 134.733 250.012C154.623 207.182 320.143 36.3054 373.163 62.2824L373.163 62.3454Z" fill="black"/>
-</svg>
-
-</Link>
-
-</div>
+    <div className={`signsContainer ${correctConnections === 5 ? "completed" : ""}`}>
+      <div className="back">
+        <Link to="/">
+          <svg width="380" height="521" viewBox="0 0 380 521" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M265.476 483.612C260.979 499.198 257.748 510.476 254.898 520.359C217.968 522.577 3.79931 301.14 -0.000678811 256.219C41.2993 165.173 167.292 67.9194 239.125 -0.000551825C250.97 9.37646 260.219 16.6624 267.82 22.6814C261.929 127.666 82.6003 164.793 80.1303 268.194C148.289 337.127 207.262 405.871 265.413 483.612L265.476 483.612Z" fill="black"/>
+            <path d="M373.163 62.3454C374.81 71.2164 377.027 82.6834 379.117 93.7074C333.889 160.487 251.224 185.64 210.493 255.017C243.623 332.504 384.882 397.89 352.829 490.139C305.384 500.974 156.587 284.352 134.733 250.012C154.623 207.182 320.143 36.3054 373.163 62.2824L373.163 62.3454Z" fill="black"/>
+          </svg>
+        </Link>
+      </div>
       <ReactFlow
-        className={`game `}
+        className="game"
         nodes={nodesState}
         edges={edges}
         onNodesChange={onNodesChange}
@@ -240,7 +240,7 @@ export const Signs: React.FC = () => {
         zoomOnScroll={false}
         zoomOnPinch={false}
         zoomOnDoubleClick={false}
-      ></ReactFlow>
+      />
 
       {edges.length >= 5 &&
         (correctConnections === 5 ? (
@@ -272,13 +272,13 @@ export const Signs: React.FC = () => {
               textAlign: "center",
             }}
           >
-            Somethings wrong, try again!
+            Something's wrong, try again!
           </div>
         ))}
 
-      <img id="signsAuthor" src={BrunoSigns} />
+      <img id="signsAuthor" src={BrunoSigns} alt="Bruno Munari" />
       <div id="signsHidden">
-      <Button action={initializeGame} label="Play Again"/>
+        <Button action={initializeGame} label="Play Again"/>
         <p>
           Many of our activities today are conditioned by signs and symbols,
           though so far these are only used for visual communication and
