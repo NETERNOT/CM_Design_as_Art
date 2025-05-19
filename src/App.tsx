@@ -2,7 +2,8 @@
 
 
 import './App.css'
-import SortingGame from './pages/sorting/Sorting'
+//import Signs from './pages/Signs/Signs'
+//import SortingGame from './pages/sorting/Sorting'
 //import MemoryGame from './pages/memory/Memory'
 //import CustomSortingGame from './pages/customSorting/CustomSorting'
 import Signs from './pages/Signs/Signs'
