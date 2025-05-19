@@ -198,6 +198,7 @@ const SortingGame: React.FC = () => {
 
     setCurrentChairs(selectedChairs);
     setCorrectOrders(newCorrectOrders);
+
   };
 
   // Initialize on first render
