@@ -1,10 +1,15 @@
-.button{
+.button-container {
     font-size: 1rem;
-    max-height: 50px;
+    font-weight: 900;
+    min-height: 50px;
     min-width: 100px;
-
+    max-width: 200px;
+    width: max-content;
+    padding: 0 1rem;
+color: aliceblue;
     background-color: black;
-    border-radius: 20px;
+    border-radius: 50px;
     cursor: none;
+border: none;
   }
 

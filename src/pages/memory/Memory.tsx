@@ -219,9 +219,8 @@ const MemoryGame: React.FC = () => {
         />
         <div id="hidden" className={isGameOver? "t2":"t1"}>
           <h2>Final Score: {score}</h2>
-          <button id="restart" onClick={initializeGame}>
-            Play Again
-          </button>
+    
+          <Button action={initializeGame} label="Play Again"  />
         </div>
       </div>
 

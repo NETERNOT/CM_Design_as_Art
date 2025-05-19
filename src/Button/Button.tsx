@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({ action, label, isdisabled }) => {
   return (
     <button
       onClick={action}
-      className="button"
+      className="button-container"
       disabled={isdisabled} // 👈 Disable the button when true
     >
       {label}
