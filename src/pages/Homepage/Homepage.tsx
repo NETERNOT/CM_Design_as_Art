@@ -392,7 +392,9 @@ const Homepage: React.FC = () => {
               <img src={randomSvgs.signal} alt="Random Signal" className="bottom-svg" />
             </motion.div>
           </Link>
+          
         </div>
+        <div className='select'> Select a minigame</div>
       </div>
     </div>
   );

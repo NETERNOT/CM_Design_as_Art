@@ -258,6 +258,13 @@ const MemoryGame: React.FC = () => {
           label="New"
         />
       </div>
+      {!isGameOver && (
+        <div className={`textmemory ${isGameOver ? "fade-out" : ""}`}>
+  Press New if the face is new. <br/>Press Seen if the face has appeared before
+</div>
+)}
+
+      
 
       <img src={Bruno} className="Author" />
       <p id="text" className={isGameOver ? "t1" : "t2"}>

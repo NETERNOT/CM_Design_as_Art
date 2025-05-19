@@ -136,3 +136,25 @@ body {
   font-size: 1.3rem;
   transition-duration: 0.5s;
 }
+
+
+
+.textmemory {
+  font-size: 1rem;
+  color: black;
+  text-align: center;
+  padding: 2rem 2rem 2rem 2rem;
+  box-sizing: border-box;
+
+}
+
+
+.textmemory {
+  opacity: 1;
+  transition: opacity 0.1s ease-in-out;
+}
+
+.textmemory.fade-out {
+  opacity: 0;
+  pointer-events: none; /* This prevents interaction with the element while it's fading */
+}
