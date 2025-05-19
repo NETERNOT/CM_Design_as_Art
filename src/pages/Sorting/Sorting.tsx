@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, Reorder } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 import "./Sorting.css";
 
 import StarIcon from "../../assets/star.svg";
@@ -344,7 +345,9 @@ const SortingGame: React.FC = () => {
           >
             Play Again
           </button>
+          <Link to="/customsorting">
           <button>Explore More</button>
+          </Link>
         </div>
       </div>
       {/*
