@@ -71,7 +71,19 @@ function App() {
 
   return (
     <>
-      <CustomSortingGame />
+      {/* Add the cursor element */}
+      <div id="cursor"></div>
+
+      <BrowserRouter>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/customsorting" element={<CustomSortingGame />} />
+            <Route path="/memory" element={<Memory />} />
+            <Route path="/sorting" element={<SortingGame />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </>
   );
 }
