@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { motion } from 'framer-motion';
 import './Homepage.css';
 
@@ -360,7 +360,7 @@ const Homepage: React.FC = () => {
       </div>
       
       <div className="content-section">
-        <h1 className="title">Design as Art</h1>
+        <h1 className="title">Design <br/>as Art</h1>
         <p className="text">
           A work based on the book "Design as Art" by Bruno Munari<br/>
           A website by Nuno Pinto and Pedro Anjinho in the context of the Multimedia Communication discipline at the University of Coimbra
