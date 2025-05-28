@@ -258,19 +258,10 @@ input{
 }
 
 
-#setCombinations{
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-  height: 100%;
-  padding: 1rem;
-  border-right: 1px solid black;
-}
-
 #otherCombinations{
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100%;
   height: 100%;
   padding: 1rem;
 }
@@ -284,7 +275,7 @@ input{
 }
 
 .combo{
-  width: 30%;
+  width: 25%;
   min-width: 10rem;
   padding-top: 1rem;
   cursor: pointer;

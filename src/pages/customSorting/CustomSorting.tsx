@@ -159,13 +159,8 @@ const CustomSortingGame: React.FC = () => {
   const [currentChairs, setCurrentChairs] = useState<Chair[]>([]);
   const [category, setCategory] = useState("");
   const [author, setAuthor] = useState("");
-  //const [savedCombinations, setSavedCombinations] = useState<
-  //  ChairCombination[]
-  //>([]);
-  const [setCombinations, setSetCombinations] = useState<ChairCombination[]>(
-    []
-  );
-  const [otherCombinations, setOtherCombinations] = useState<
+
+  const [Combinations, setCombinations] = useState<
     ChairCombination[]
   >([]);
   const [areChairsOpen, setAreChairsOpen] = useState(true);
@@ -187,68 +182,32 @@ const CustomSortingGame: React.FC = () => {
       }
     );
 
-    //const text = await response.text();
     const message = await response.json();
 
     if (message.message === "Success") {
-      alert("Success! Your order has been submitted. You can check yours and others on the Collections tab.");
+      alert(
+        "Success! Your order has been submitted. You can check yours and others on the Collections tab."
+      );
     } else {
       alert(message.message);
     }
   };
 
   const handleCombinations = async () => {
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbyDzmG03yMUrEiVrw4kGFnaOjJ9S_3rc6-xhRsxtzWdS-_sfew4WIPVeuHVTw8v8Ooi/exec"
       );
       const data: ChairCombination[] = await response.json();
-
-      //setSavedCombinations(data);
-
-      const currentIds = [...currentChairs.map((c) => c.id)].sort(
-        (a, b) => a - b
-      );
-      const setMatches: ChairCombination[] = [];
-      const otherMatches: ChairCombination[] = [];
-
-      data.forEach((combo) => {
-        const sortedCombo = [...combo.chairs].sort((a, b) => a - b);
-        const isSame =
-          JSON.stringify(sortedCombo) === JSON.stringify(currentIds);
-        if (isSame) {
-          setMatches.push(combo);
-        } else {
-          otherMatches.push(combo);
-        }
-      });
-
-      setSetCombinations(setMatches);
-      setOtherCombinations(otherMatches);
+      setCombinations(data);
     } catch (error) {
       console.error("Failed to fetch combinations:", error);
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
-  const prevChairsRef = React.useRef<number[]>([]);
-
-  useEffect(() => {
-    const currentIds = currentChairs.map((c) => c.id).sort((a, b) => a - b);
-    const prevIds = [...prevChairsRef.current].sort((a, b) => a - b);
-
-    const hasChanged =
-      currentIds.length !== prevIds.length ||
-      currentIds.some((id, i) => id !== prevIds[i]);
-
-    if (hasChanged && currentIds.length <= 5) {
-      handleCombinations();
-    }
-
-    prevChairsRef.current = currentChairs.map((c) => c.id);
-  }, [currentChairs]);
 
   const isFormValid =
     category.trim() !== "" &&
@@ -287,17 +246,26 @@ const CustomSortingGame: React.FC = () => {
 
   return (
     <div className="container">
-
-<div className="back">
-  <Link to="/">
-  <svg width="380" height="521" viewBox="0 0 380 521" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M265.476 483.612C260.979 499.198 257.748 510.476 254.898 520.359C217.968 522.577 3.79931 301.14 -0.000678811 256.219C41.2993 165.173 167.292 67.9194 239.125 -0.000551825C250.97 9.37646 260.219 16.6624 267.82 22.6814C261.929 127.666 82.6003 164.793 80.1303 268.194C148.289 337.127 207.262 405.871 265.413 483.612L265.476 483.612Z" fill="black"/>
-<path d="M373.163 62.3454C374.81 71.2164 377.027 82.6834 379.117 93.7074C333.889 160.487 251.224 185.64 210.493 255.017C243.623 332.504 384.882 397.89 352.829 490.139C305.384 500.974 156.587 284.352 134.733 250.012C154.623 207.182 320.143 36.3054 373.163 62.2824L373.163 62.3454Z" fill="black"/>
-</svg>
-
-</Link>
-
-</div>
+      <div className="back">
+        <Link to="/">
+          <svg
+            width="380"
+            height="521"
+            viewBox="0 0 380 521"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M265.476 483.612C260.979 499.198 257.748 510.476 254.898 520.359C217.968 522.577 3.79931 301.14 -0.000678811 256.219C41.2993 165.173 167.292 67.9194 239.125 -0.000551825C250.97 9.37646 260.219 16.6624 267.82 22.6814C261.929 127.666 82.6003 164.793 80.1303 268.194C148.289 337.127 207.262 405.871 265.413 483.612L265.476 483.612Z"
+              fill="black"
+            />
+            <path
+              d="M373.163 62.3454C374.81 71.2164 377.027 82.6834 379.117 93.7074C333.889 160.487 251.224 185.64 210.493 255.017C243.623 332.504 384.882 397.89 352.829 490.139C305.384 500.974 156.587 284.352 134.733 250.012C154.623 207.182 320.143 36.3054 373.163 62.2824L373.163 62.3454Z"
+              fill="black"
+            />
+          </svg>
+        </Link>
+      </div>
 
       <div id="upperSection">
         {areChairsOpen ? (
@@ -318,9 +286,9 @@ const CustomSortingGame: React.FC = () => {
           </div>
         ) : (
           <div className="upperUpper alt">
-            <p id="category">{category=="" ? "Custom" : category}</p>
+            <p id="category">{category == "" ? "Custom" : category}</p>
             <br />
-            <p id="author">by {author=="" ? "You" : author }</p>
+            <p id="author">by {author == "" ? "You" : author}</p>
           </div>
         )}
 
@@ -345,7 +313,7 @@ const CustomSortingGame: React.FC = () => {
                   />
                 </div>
                 <svg
-                  className={`removeChair ${areChairsOpen ?"":"alt"}`}
+                  className={`removeChair ${areChairsOpen ? "" : "alt"}`}
                   onClick={() => {
                     if (areChairsOpen) handleRemoveChair(chair.id);
                   }}
@@ -396,7 +364,11 @@ const CustomSortingGame: React.FC = () => {
           <div id="topicContainer">
             <div
               className={`topic ${areChairsOpen ? "open" : ""}`}
-              onClick={() => {setAreChairsOpen(true); setAuthor(""); setCategory("");} }
+              onClick={() => {
+                setAreChairsOpen(true);
+                setAuthor("");
+                setCategory("");
+              }}
             >
               <p>Chairs</p>
               <svg
@@ -479,35 +451,10 @@ const CustomSortingGame: React.FC = () => {
             <div className="loading">Loading...</div> // 👈 Replace with spinner if needed
           ) : (
             <div id="combinations">
-              <div id="setCombinations">
-                <h2 className="sectionTitle">For this set:</h2>
-                <div className="comboContainer">
-                  {setCombinations.map((combo, index) => (
-                    <p
-                      className="combo"
-                      key={index}
-                      onClick={() => {
-                        setCurrentChairs(
-                          combo.chairs.map(
-                            (id) =>
-                              ALL_CHAIRS.find(
-                                (chair) => chair.id === id
-                              ) as Chair
-                          )
-                        );
-                        setAuthor(combo.author);
-                        setCategory(combo.category);
-                      }}
-                    >
-                      <b>{combo.category}</b> <br></br>by {combo.author}
-                    </p>
-                  ))}
-                </div>
-              </div>
               <div id="otherCombinations">
                 <h2 className="sectionTitle">Others:</h2>
                 <div className="comboContainer">
-                  {otherCombinations.map((combo, index) => (
+                  {Combinations.map((combo, index) => (
                     <p
                       className="combo"
                       key={index}
