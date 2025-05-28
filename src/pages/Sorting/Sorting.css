@@ -17,7 +17,7 @@
       width: 50dvw;
       height: 50dvh;
 
-      &>.chairs-container, .hint-text{
+      &>.chairs-container, .hint-text, .customLink{
         opacity: 0;
       }
       &>.stars-container{
@@ -204,3 +204,8 @@
     left: 0;
     align-self: flex-start;
   }
+.customLink{
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+}

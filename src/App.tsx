@@ -5,7 +5,7 @@ import './App.css';
 import CustomSortingGame from './pages/customSorting/CustomSorting';
 import Memory from './pages/memory/Memory';
 import Home from './pages/Homepage/Homepage.tsx';
-import SortingGame from './pages/Sorting/Sorting.tsx';
+import SortingGame from './pages/sorting/Sorting.tsx';
 import Signs from './pages/Signs/Signs.tsx';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
 
     let targetX = window.innerWidth / 2;
     let targetY = window.innerHeight / 2;
-    let cursorSize = 40;
+    const cursorSize = 40;
 
     const mouse = { x: 0, y: 0 };
 

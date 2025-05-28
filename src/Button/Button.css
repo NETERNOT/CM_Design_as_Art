@@ -1,29 +1,32 @@
 .button-container {
-    font-size: 1rem;
-    font-weight: 900;
-    min-height: 50px;
-    min-width: 100px;
-    max-width: 200px;
-    width: max-content;
-    padding: 0 1rem;
-color: aliceblue;
-    background-color: black;
-    border-radius: 50px;
-    cursor: none;
-border: none;
+  font-size: 1rem;
+  font-weight: 900;
+  min-height: 50px;
+  min-width: 100px;
+  max-width: 200px;
+  width: max-content;
+  padding: 0 1rem;
+  color: aliceblue;
+  background-color: black;
+  border-radius: 50px;
+  cursor: none;
+  border: none;
+
+  &.negative {
+    background-color: #fff;
+    border: 3px solid black;
+    color: black;
   }
+}
 
-
-
-  .back svg{
-    position: absolute;
-    top: 5vh;
-    left: 5vw;
-width:60px;
-height: 60px;
-    z-index: -1;
-    transition: opacity 0.3s ease-in-out;
-    z-index: 200;
-    cursor: none;
-  }
-  
+.back svg {
+  position: absolute;
+  top: 5vh;
+  left: 5vw;
+  width: 60px;
+  height: 60px;
+  z-index: -1;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 200;
+  cursor: none;
+}

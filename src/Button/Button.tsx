@@ -5,13 +5,14 @@ interface ButtonProps {
   action: () => void;
   label: string;
   isdisabled?: boolean;
+  negative?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ action, label, isdisabled }) => {
+const Button: React.FC<ButtonProps> = ({ action, label, isdisabled, negative }) => {
   return (
     <button
       onClick={action}
-      className="button-container"
+      className={`button-container ${negative ? "negative" : ""}`}
       disabled={isdisabled} // 👈 Disable the button when true
     >
       {label}
