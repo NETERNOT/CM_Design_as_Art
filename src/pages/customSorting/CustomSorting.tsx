@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, Reorder } from "framer-motion";
 import "./CustomSorting.css";
+import infoIcon from "../../assets/info.svg";
 
 import Chair01 from "../../assets/chairs/chair01.svg";
 import Chair02 from "../../assets/chairs/chair02.svg";
@@ -357,6 +358,19 @@ const CustomSortingGame: React.FC = () => {
           </svg>
           Lowest
         </p>
+
+        <div id="instructions">
+          <img src={infoIcon}/>
+          <p>
+            Drag and drop the chairs to arrange them in your preferred order.
+            <br />
+            Hover a chair to reveal the remove button.
+            <br />
+            Click on a chair in the lower menu to add it to your selection, up to 5.
+            <br />
+            Click on the "Collections" tab to see combinations created by other users.
+          </p>
+        </div>
       </div>
 
       <div id="lowerSection">

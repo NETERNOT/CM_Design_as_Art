@@ -20,6 +20,7 @@
 }
 
 #upperSection {
+  position: relative;
   display: flex;
   height: 60vh;
   width: 100%;
@@ -281,3 +282,27 @@ input{
   cursor: pointer;
 }
 
+#instructions{
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+
+  &>p{
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0rem);
+    width: 24rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid black;
+    padding: 1rem;
+
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+    }
+  &:hover>p{
+    opacity: 1;
+    bottom: calc(100% + 1rem);
+  }
+}

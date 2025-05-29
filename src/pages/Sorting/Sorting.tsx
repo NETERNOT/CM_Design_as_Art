@@ -344,6 +344,8 @@ const SortingGame: React.FC = () => {
         }`}
       >
         Reorder the chairs to discover all three categories!
+        <br/>
+        From Highest to Lowest
       </div>
 
       <img src={Bruno} className="Author"></img>
