@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link} from "react-router-dom";
 import { motion } from 'framer-motion';
 import './Homepage.css';
+import infoIcon from '../../assets/info.svg';
 
 // Import all chair SVGs
 import Chair01 from "../../assets/chairs/chair01.svg";
@@ -338,6 +339,8 @@ const Homepage: React.FC = () => {
 
   return (
     <div className="homepage">
+
+
       <div className="grid-container">
         <div 
           ref={scrollRef} 
@@ -347,7 +350,7 @@ const Homepage: React.FC = () => {
             height: '100vh'
           }}
         >
-          {Array.from({ length: visibleItems }).map((_, index) => {
+          {Array.from({ length: visibleItems-1 }).map((_, index) => {
             const itemIndex = index % shuffledItems.length;
             return (
               <GridItem 
@@ -361,41 +364,40 @@ const Homepage: React.FC = () => {
       
       <div className="content-section">
         <h1 className="title">Design <br/>as Art</h1>
-        <p className="text">
-          A work based on the book "Design as Art" by Bruno Munari<br/>
-          A website by Nuno Pinto and Pedro Anjinho in the context of the Multimedia Communication discipline at the University of Coimbra
-        </p>
+   
         
         <div className="bottom-svgs">
-          <Link to="/memory">
-            <motion.div 
-              className="bottom-svg-container"
-              whileHover={{ scale: 1.1 }}
-            >
-              <img src={randomSvgs.face} alt="Random Face" className="bottom-svg" />
-            </motion.div>
-          </Link>
-          <Link to="/sorting">
-            <motion.div 
-              className="bottom-svg-container"
-              whileHover={{ scale: 1.1 }}
-              
-            >
-              <img src={randomSvgs.chair} alt="Random Chair" className="bottom-svg" />
-            </motion.div>
-          </Link>
-          <Link to="/signal">
-            <motion.div 
-              className="bottom-svg-container"
-              whileHover={{ scale: 1.1 }}
-            >
-              <img src={randomSvgs.signal} alt="Random Signal" className="bottom-svg" />
-            </motion.div>
-          </Link>
-          
-        </div>
+  <Link to="/tutorial1" className="svg-link">
+    <div className="svg-container">
+      <img src={randomSvgs.face} alt="Random Face" className="bottom-svg" />
+      <div className="description">Memory Game</div>
+    </div>
+  </Link>
+
+  <Link to="/tutorial2" className="svg-link">
+    <div className="svg-container">
+      <img src={randomSvgs.chair} alt="Random Chair" className="bottom-svg" />
+      <div className="description">Sorting Game</div>
+    </div>
+  </Link>
+
+  <Link to="/tutorial3" className="svg-link">
+    <div className="svg-container">
+      <img src={randomSvgs.signal} alt="Random Signal" className="bottom-svg" />
+      <div className="description">Symbols Game</div>
+    </div>
+  </Link>
+</div>
         <div className='select'> Select a minigame</div>
       </div>
+
+      <div id="instructionshomepage">
+          <img src={infoIcon}/>
+          <p>
+          A work based on the book "Design as Art" by Bruno Munari<br/>
+          A website by Nuno Pinto and Pedro Anjinho in the context of the Multimedia Communication discipline at the University of Coimbra
+          </p>
+        </div>
     </div>
   );
 };

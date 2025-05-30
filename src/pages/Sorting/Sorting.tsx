@@ -6,6 +6,7 @@ import Button from "../../Button/Button";
 import StarIcon from "../../assets/star.svg";
 import EmptyStarIcon from "../../assets/empty-star.svg";
 import Bruno from "../../assets/BrunoMunari/face1.jpg";
+import infoIcon from "../../assets/info.svg";
 
 interface Chair {
   id: number;
@@ -350,6 +351,18 @@ const SortingGame: React.FC = () => {
 
       <img src={Bruno} className="Author"></img>
 
+<div id="instructionssorting">
+          <img src={infoIcon}/>
+          <p>
+            Drag and drop the chairs to arrange them in your preferred order.
+            <br />
+            Hover a chair to reveal the remove button.
+            <br />
+            Click on a chair in the lower menu to add it to your selection, up to 5.
+            <br />
+            Click on the "Collections" tab to see combinations created by other users.
+          </p>
+        </div>
       <div
         id="hiddenContent"
         className={isPlaying ? "secondTransition" : "firstTransition"}

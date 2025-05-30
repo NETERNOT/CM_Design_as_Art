@@ -10,6 +10,9 @@
 
 #counters {
   color: black;
+  position: absolute;
+
+  top: 3rem;
 }
 
 body {
@@ -52,12 +55,18 @@ body {
       top: 80%;
       height: 120%;
     }
+    & #currentFace {
+      height: 10rem;
+    }
+    & #instructionsmemory {
+      opacity: 0;
+    }
   }
 }
 
 #currentFace {
   position: relative;
-  height: 10rem;
+  height: 15rem;
   object-fit: contain;
   margin: 1rem 0 2rem;
   right: 0;
@@ -69,6 +78,8 @@ body {
 
 .buttons {
   display: flex;
+  position: absolute;
+  bottom: 5rem;
   gap: 2rem;
 
  
@@ -140,6 +151,8 @@ body {
 
 
 .textmemory {
+  position: absolute;
+  bottom: 1rem;
   font-size: 1rem;
   color: black;
   text-align: center;
@@ -157,4 +170,30 @@ body {
 .textmemory.fade-out {
   opacity: 0;
   pointer-events: none; /* This prevents interaction with the element while it's fading */
+}
+
+
+#instructionsmemory{
+  position: absolute;
+  bottom: 5rem;
+  right: 62rem;
+
+  &>p{
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0rem);
+    width: 24rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid black;
+    padding: 1rem;
+
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+    }
+  &:hover>p{
+    opacity: 1;
+    bottom: calc(100% + 1rem);
+  }
 }

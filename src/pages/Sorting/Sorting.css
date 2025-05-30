@@ -26,6 +26,8 @@
 
       &>#hiddenContent{
         top:50%;
+      }#instructionssorting {
+        opacity: 0;
       }
 
     }
@@ -141,6 +143,7 @@
     margin-top: 8px;
     font-size: 12px;
     color: #555;
+
   }
   
   .discovery-message {
@@ -207,6 +210,33 @@
   }
 .customLink{
   position: absolute;
-  bottom: 2rem;
+  bottom: 5rem;
   right: 2rem;
+}
+
+
+
+#instructionssorting{
+  position: absolute;
+  bottom: 5rem;
+  right: 13rem;
+
+  &>p{
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0rem);
+    width: 24rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid black;
+    padding: 1rem;
+
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+    }
+  &:hover>p{
+    opacity: 1;
+    bottom: calc(100% + 1rem);
+  }
 }

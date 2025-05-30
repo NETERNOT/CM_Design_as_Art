@@ -7,6 +7,8 @@ import Memory from './pages/memory/Memory';
 import Home from './pages/Homepage/Homepage.tsx';
 import SortingGame from './pages/sorting/Sorting.tsx';
 import Signs from './pages/Signs/Signs.tsx';
+import Tutorial from './pages/Tutorial/Tutorial.tsx';
+
 
 function App() {
   const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
@@ -83,6 +85,9 @@ function App() {
             <Route path="/memory" element={<Memory />} />
             <Route path="/sorting" element={<SortingGame />} />
             <Route path="/signal" element={<Signs />} />
+            <Route path="/tutorial1" element={<Tutorial type="memory" />} />
+            <Route path="/tutorial2" element={<Tutorial type="sorting" />} />
+            <Route path="/tutorial3" element={<Tutorial type="signal" />} />
           </Routes>
         </div>
       </BrowserRouter>

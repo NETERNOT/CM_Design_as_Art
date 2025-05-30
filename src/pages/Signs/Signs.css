@@ -53,6 +53,8 @@
     &>#signsAuthor{
       left: 50%;
       transition: all 0.5s ease 1s;
+    } & #instructionssignals {
+      opacity: 0;
     }
   }
 }
@@ -83,5 +85,32 @@
   &>p{  
     overflow: scroll;
     font-size: 1.3rem;
+  }
+}
+
+
+
+#instructionssignals{
+  position: absolute;
+  bottom: 5rem;
+  right: 5rem;
+
+  &>p{
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0rem);
+    width: 24rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid black;
+    padding: 1rem;
+
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+    }
+  &:hover>p{
+    opacity: 1;
+    bottom: calc(100% + 1rem);
   }
 }

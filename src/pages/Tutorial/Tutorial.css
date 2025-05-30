@@ -1,0 +1,51 @@
+.tutorial-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .video-container {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    margin-top: 5rem;
+    overflow: hidden;
+    border: black 2px solid;
+  }
+  
+  .tutorial-video {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .text-content p{
+
+    margin-bottom: 2rem;
+  }
+  
+  
+  /* Type-specific styles */
+  .tutorial-beginner .tutorial-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .tutorial-intermediate .tutorial-button {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .tutorial-advanced .tutorial-button {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .tutorial-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }

@@ -3,6 +3,7 @@ import "./Memory.css";
 import Bruno from "../../assets/BrunoMunari/face2.jpg";
 import { Link } from "react-router-dom";
 import Button from "../../Button/Button";
+import infoIcon from "../../assets/info.svg";
 interface Face {
   id: number;
   src: string;
@@ -257,14 +258,25 @@ const MemoryGame: React.FC = () => {
           isdisabled={lives <= 0 ? true : false}
           label="New"
         />
+
+
       </div>
       {!isGameOver && (
         <div className={`textmemory ${isGameOver ? "fade-out" : ""}`}>
-  Press New if the face is new. <br/>Press Seen if the face has appeared before
+ 
+  
+  
 </div>
+
+
 )}
 
-      
+<div id="instructionsmemory">
+          <img src={infoIcon}/>
+          <p>
+          Memorize the faces that have appeared on the screen and identify the new ones
+          </p>
+        </div>
 
       <img src={Bruno} className="Author" />
       <p id="text" className={isGameOver ? "t1" : "t2"}>

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import BrunoSigns from "../../assets/BrunoMunari/face3.jpg";
 import Button from "../../Button/Button";
+import infoIcon from "../../assets/info.svg";
 
 import ReactFlow, {
   Edge,
@@ -275,7 +276,12 @@ export const Signs: React.FC = () => {
             Something's wrong, try again!
           </div>
         ))}
-
+<div id="instructionssignals">
+          <img src={infoIcon}/>
+          <p>
+          Match the symbols to their meanings
+          </p>
+        </div>
       <img id="signsAuthor" src={BrunoSigns} alt="Bruno Munari" />
       <div id="signsHidden">
         <Button action={initializeGame} label="Play Again"/>

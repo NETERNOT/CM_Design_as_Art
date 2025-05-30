@@ -106,3 +106,71 @@
  font-size: 1.3rem;
 }
 
+
+
+
+.svg-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.svg-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.svg-container:hover {
+  transform: scale(1.1);
+}
+
+.bottom-svg {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 5px;
+}
+
+.description {
+  position: absolute;
+  bottom: -25px;
+  opacity: 0;
+  color: rgb(0, 0, 0);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.svg-container:hover .description {
+  opacity: 1;
+}
+
+
+#instructionshomepage{
+  position: absolute;
+  bottom: 5rem;
+  right: 5rem;
+
+  &>p{
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 0rem);
+    width: 24rem;
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid black;
+    padding: 1rem;
+
+    opacity: 0;
+    transition: all 0.5s ease;
+    pointer-events: none;
+    }
+  &:hover>p{
+    opacity: 1;
+    bottom: calc(100% + 1rem);
+  }
+}
