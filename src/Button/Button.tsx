@@ -2,7 +2,7 @@ import React from "react";
 import "./Button.css";
 
 interface ButtonProps {
-  action: () => void;
+  action?: () => void;
   label: string;
   isdisabled?: boolean;
   negative?: boolean;

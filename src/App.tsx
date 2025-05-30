@@ -5,7 +5,7 @@ import './App.css';
 import CustomSortingGame from './pages/customSorting/CustomSorting';
 import Memory from './pages/memory/Memory';
 import Home from './pages/Homepage/Homepage.tsx';
-import SortingGame from './pages/sorting/Sorting.tsx';
+import SortingGame from './pages/Sorting/Sorting.tsx';
 import Signs from './pages/Signs/Signs.tsx';
 import Tutorial from './pages/Tutorial/Tutorial.tsx';
 

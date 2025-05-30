@@ -7,7 +7,7 @@ import sortingVideo from '../../assets/sortingtutorial.mp4';
 import memoryVideo from '../../assets/memorytutorial.mp4';
 
 // Define the possible types
-type TutorialType = 'beginner' | 'intermediate' | 'advanced';
+type TutorialType = 'memory' | 'sorting' | 'signal';
 
 // Define the props interface
 interface TutorialPageProps {
